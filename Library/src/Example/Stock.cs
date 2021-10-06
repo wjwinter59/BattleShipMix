@@ -11,7 +11,7 @@ namespace Library
   {
     private string symbol;
     private double price;
-    private List<IInvestor> investors = new List<IInvestor>();
+    private List<IPlayer> players = new List<IPlayer>();
 
     // Constructor
 
@@ -21,21 +21,21 @@ namespace Library
       this.price = price;
     }
 
-    public void Attach(IInvestor investor)
+    public void Attach(IPlayer player)
     {
-      investors.Add(investor);
+      players.Add(player);
     }
 
-    public void Detach(IInvestor investor)
+    public void Detach(IPlayer player)
     {
-      investors.Remove(investor);
+      players.Remove(player);
     }
 
     public void Notify()
     {
-      foreach (IInvestor investor in investors)
+      foreach (IPlayer player in players)
       {
-        investor.Update(this);
+        player.Update(this);
       }
 
       Console.WriteLine("");

@@ -6,20 +6,20 @@ namespace Library
   /// The 'ConcreteObserver' class
   /// </summary>
 
-  public class Investor : IInvestor
+  public class Player : IPlayer
   {
     private string name;
-    private Stock stock;
+    private Stock stock; // make it a grid
 
     // Constructor
 
-    public Investor(string name)
+    public Player(string name)
     {
       this.name = name;
     }
 
     public void Update(Stock stock)
-    {
+    { //get input 
       Console.WriteLine($"Notified {name} of {stock.Symbol}'s change to {stock.Price:C}" );
     }
 

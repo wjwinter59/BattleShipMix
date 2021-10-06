@@ -13,7 +13,7 @@ namespace Library
 
   public class Grid
   {
-    Kind[,] cells;
+    Kind [,] cells;
     BoardSize gridSize;
     public Kind[,] Cells { get => cells; }
     public Grid(BoardSize gridSize)
@@ -44,13 +44,15 @@ namespace Library
     /// if the list is empty than there is no room for the ship of size 'length' on the grid
     /// the length property will provide a number from witch the ship wil start randomly
     /// </summary>
-    public void FindPlacesOnTheGrid(BattleShip Ship)
+    public void FindPlacesOnTheGrid(BattleShip ship)
     { // hash table van maken ?
       List<tempPosition> possibillitys = new List<tempPosition>();
-      FindY(possibillitys, Ship);
-      FindX(possibillitys, Ship);
+      FindY(possibillitys, ship);
+      Console.WriteLine($"Ship : {ship.Name} \t length {ship.Length} \t Spaces : {possibillitys.Count}");
+      FindX(possibillitys, ship);
+      Console.WriteLine($"Ship : {ship.Name} \t length {ship.Length} \t Spaces : {possibillitys.Count}");
       if (possibillitys.Count > 0)
-        PlaceBattleShip(possibillitys, Ship);
+        PlaceBattleShip(possibillitys, ship);
       ShowCells();
     }
     /// <summary>
@@ -64,12 +66,12 @@ namespace Library
     {
       Random random = new Random();
       int startPosition = 0, randomSpace = 0;
-      Console.WriteLine($"Ship : {ship.Name} \t length {ship.Length} \t Spaces : {spaces.Count}");
+      /*
       foreach (var space in spaces)
       {
         Console.WriteLine($"Found spaces : {space.x},{space.y} length {space.spaceLength} \t Ship len {ship.Length}");
       }
-
+      */
       if (spaces.Count == 0) return false;
 
       randomSpace = spaces.Count > 0 ? random.Next(spaces.Count) : 0;
@@ -81,13 +83,13 @@ namespace Library
         if (spaces[randomSpace].horizontal)
         {
           //Console.ForegroundColor = (Console.ForegroundColor == ConsoleColor.Green) ? ConsoleColor.Blue : ConsoleColor.Green;
-          Console.ForegroundColor = ConsoleColor.Green;
+          //Console.ForegroundColor = ConsoleColor.Green;
           cells[spaces[randomSpace].x + startPosition + i, spaces[randomSpace].y] = Kind.Ship;
         }
         else
         {
           //Console.ForegroundColor = (Console.ForegroundColor == ConsoleColor.Blue) ? ConsoleColor.Green : ConsoleColor.Blue;
-          Console.ForegroundColor = ConsoleColor.Blue;
+          //Console.ForegroundColor = ConsoleColor.Blue;
           cells[spaces[randomSpace].x, spaces[randomSpace].y + startPosition + i] = Kind.Ship;
         }
       }
@@ -119,7 +121,7 @@ namespace Library
         {
           if ((cells[i, j++] != Kind.Water) | (j == gridSize.y - Ship.Length))
           {
-            Console.Write($"Geen Water of eol: {cells[i, j]},");
+            //Console.Write($"Geen Water of eol: {cells[i, j]},");
             if (j + Ship.Length <= gridSize.y) // is er ruimte
               possibillitys.Add(new tempPosition() { x = i, y = s, spaceLength = j - s, horizontal = false });
             s = ++j;//skip 'non water'
@@ -139,7 +141,7 @@ namespace Library
         {
           if ((cells[j++, i] != Kind.Water) | (j == gridSize.x - Ship.Length))
           {
-            Console.Write($"Geen Water of eol: {cells[i, j]},");
+            //Console.Write($"Geen Water of eol: {cells[i, j]},");
             if (j + Ship.Length <= gridSize.x) // is er ruimte
               possibillitys.Add(new tempPosition() { x = s, y = i, spaceLength = j - s, horizontal = true });
             s = ++j;//skip 'non water'

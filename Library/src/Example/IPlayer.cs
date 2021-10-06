@@ -6,7 +6,7 @@ namespace Library
   /// The 'Observer' interface
   /// </summary>
 
-  public interface IInvestor
+  public interface IPlayer
   {
     void Update(Stock stock);
   }
