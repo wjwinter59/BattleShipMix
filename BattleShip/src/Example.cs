@@ -11,14 +11,14 @@ namespace BattleFleetHarbor
   {
     public void DoExample ()
     {
-      // Create IBM stock and attach investors
+      // Create IBM stock and attach players
 
       IBM ibm = new IBM("IBMpc", 120.00);
-      ibm.Attach(new Investor("Sorros"));
-      ibm.Attach(new Investor("Willempie"));
-      ibm.Attach(new Investor("Berkshire"));
+      ibm.Attach(new Player("Sorros"));
+      ibm.Attach(new Player("Willempie"));
+      ibm.Attach(new Player("Berkshire"));
 
-      // Fluctuating prices will notify investors
+      // Fluctuating prices will notify players
 
       ibm.Price = 120.10;
       ibm.Price = 121.00;

@@ -6,8 +6,6 @@ namespace BattleFleetHarbor
 {
   class Program
   {
-    //static int xSize = 8;
-    //static int ySize = 8;
     static void DoNewGame()
     {      
       //Board game = new(xSize, ySize);
