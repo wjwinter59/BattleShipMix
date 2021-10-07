@@ -9,7 +9,7 @@ namespace Library
   public class Player : IPlayer
   {
     private string name;
-    private Stock stock; // make it a grid
+    //private Stock stock; // make it a grid
 
     // Constructor
 
@@ -18,17 +18,17 @@ namespace Library
       this.name = name;
     }
 
-    public void Update(Stock stock)
+    public void Update(Board sea)
     { //get input 
-      Console.WriteLine($"Notified {name} of {stock.Symbol}'s change to {stock.Price:C}" );
+      Console.WriteLine($"Notified {name} of ??" );
     }
 
     // Gets or sets the stock
 
-    public Stock Stock
+    public string Name
     {
-      get { return stock; }
-      set { stock = value; }
+      get { return name; }
+      set { name = value; }
     }
   }
 }

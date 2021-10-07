@@ -7,7 +7,7 @@ namespace Library
   /// The 'Subject' abstract class
   /// </summary>
 
-  public abstract class Stock
+  public abstract class GameTwee
   {
     private string symbol;
     private double price;
@@ -15,7 +15,7 @@ namespace Library
 
     // Constructor
 
-    public Stock(string symbol, double price)
+    public GameTwee(string symbol, double price)
     {
       this.symbol = symbol;
       this.price = price;
@@ -35,7 +35,7 @@ namespace Library
     {
       foreach (IPlayer player in players)
       {
-        player.Update(this);
+        //player.Update(this);
       }
 
       Console.WriteLine("");

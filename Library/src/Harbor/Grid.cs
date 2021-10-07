@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Library.src;
+using Library.src.Harbor;
 
 /// <summary>
 /// Cells hold the status of the gridcells by enum
@@ -40,6 +41,14 @@ namespace Library
       }
     }
     /// <summary>
+    /// New method for adding a Fleet to the board
+    /// </summary>
+    /// <param name="armada"></param>
+    public void PutFleetOnTheGrid(Fleet armada){
+      foreach(var ship in armada.BattleShips)
+        FindPlacesOnTheGrid(ship);
+    }
+    /// <summary>
     /// Holds a list of coordinates that will hold a ship one ship is randomply chosen from the list
     /// if the list is empty than there is no room for the ship of size 'length' on the grid
     /// the length property will provide a number from witch the ship wil start randomly
@@ -64,14 +73,8 @@ namespace Library
     /// <returns></returns>
     bool PlaceBattleShip(List<tempPosition> spaces, BattleShip ship)
     {
-      Random random = new Random();
+      Random random = new ();
       int startPosition = 0, randomSpace = 0;
-      /*
-      foreach (var space in spaces)
-      {
-        Console.WriteLine($"Found spaces : {space.x},{space.y} length {space.spaceLength} \t Ship len {ship.Length}");
-      }
-      */
       if (spaces.Count == 0) return false;
 
       randomSpace = spaces.Count > 0 ? random.Next(spaces.Count) : 0;
@@ -82,18 +85,15 @@ namespace Library
       {
         if (spaces[randomSpace].horizontal)
         {
-          //Console.ForegroundColor = (Console.ForegroundColor == ConsoleColor.Green) ? ConsoleColor.Blue : ConsoleColor.Green;
-          //Console.ForegroundColor = ConsoleColor.Green;
           cells[spaces[randomSpace].x + startPosition + i, spaces[randomSpace].y] = Kind.Ship;
+          ship.Location.Add((new Location() { x = spaces[randomSpace].x + startPosition + i, y = spaces[randomSpace].y }));
         }
         else
         {
-          //Console.ForegroundColor = (Console.ForegroundColor == ConsoleColor.Blue) ? ConsoleColor.Green : ConsoleColor.Blue;
-          //Console.ForegroundColor = ConsoleColor.Blue;
           cells[spaces[randomSpace].x, spaces[randomSpace].y + startPosition + i] = Kind.Ship;
+          ship.Location.Add(new Location(){x=spaces[randomSpace].x, y=spaces[randomSpace].y + startPosition + i });
         }
       }
-      //Console.ForegroundColor = ConsoleColor.Black;
       return true;
     }
     public void ShowCells()
@@ -116,7 +116,7 @@ namespace Library
       for (int i = 0; i < gridSize.x; i++) //Loop alle x posities bijlangs
       {
         j = 0;
-        s = 0; //start potetial space for ship
+        s = 0; //start potetial space for ship in y richting
         while (j < gridSize.y - Ship.Length) //niet verder dan er ruimte is voor ship
         {
           if ((cells[i, j++] != Kind.Water) | (j == gridSize.y - Ship.Length))

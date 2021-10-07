@@ -21,6 +21,7 @@ namespace Library.src
     List<Location> location; 
     public string Name { get => name; }
     public int Length { get => length; }
+    public List<Location> Location { get => location; set => location = value; }
     /// <summary>
     /// Initialize 
     /// </summary>
@@ -30,6 +31,7 @@ namespace Library.src
     {
       this.name = name;
       this.length = length;
+      location = new List<Location>();
       // make list of possible places (hor and ver) based on length of the ship
       // and change the Gridcell according to Kind.Ship
     }

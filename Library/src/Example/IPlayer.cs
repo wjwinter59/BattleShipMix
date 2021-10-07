@@ -8,6 +8,6 @@ namespace Library
 
   public interface IPlayer
   {
-    void Update(Stock stock);
+    void Update(Board sea);
   }
 }
