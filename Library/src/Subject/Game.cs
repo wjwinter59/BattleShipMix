@@ -1,32 +1,44 @@
 using System;
 using System.Collections.Generic;
 using Library.src;
-using Library.src.Harbor;
 
 namespace Library
 {
   /// <summary>
   /// The 'ConcreteSubject' class
   /// </summary>
-
-  public class Game : Board
+  public class Game 
   {
     List<Player> players = new List<Player>();
     List<BattleShip> armada = new();
+    //Board sea;
+    BoardSize dimension;
     // Constructor
-    public Game(BoardSize dimension) : base(new BoardSize { x = 10, y = 10 })
+    public Game(BoardSize dimension)// : base(new BoardSize { x = 10, y = 10 })
     {
-      //AddFleet();
+      this.dimension=dimension; //waarschijnlijk overbodig
+    }
+    public void AddPlayer (Player player){
+      player.zee = new Board();
+      players.Add(player);
+      Console.WriteLine($"{player.Name} entered the game.");
     }
     public void AddHumanPlayer(string name)
     {
       players.Add(new Human(name));
+      Console.WriteLine($"{name} entered the game.");
     }
     public void AddComputerPlayer(string name)
     {
       players.Add(new Computer(name));
+      Console.WriteLine($"Computer {name} entered the game.");
     }
-
+    public void ShowPlayers(){
+      foreach (var player in players)
+      {
+        Console.WriteLine($"{player.Name}");
+      }
+    }
     public void AddFleet()
     {
       armada.Add(new BattleShip("Carrier", 5));
@@ -34,7 +46,7 @@ namespace Library
       armada.Add(new BattleShip("Destroyer", 3));
       armada.Add(new BattleShip("Submarine", 3));
       armada.Add(new BattleShip("Patrolboat", 2));
-      AddFleet("Willelm flottielje", armada);
+      //AddFleet("Willelm flottielje", armada);
     }
   }
 }

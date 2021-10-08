@@ -8,6 +8,7 @@ namespace Library
 
   public abstract class Player
   {
+    public Board zee;// test nog uitwerken met propertie ?
     private string name;
     public string Name
     {

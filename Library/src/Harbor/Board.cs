@@ -5,7 +5,7 @@ using Library.src.Harbor;
 
 namespace Library
 {
-  public abstract class Board
+  public class Board
   {
     BoardSize ocean;
     Fleet armada;
@@ -14,6 +14,9 @@ namespace Library
     {
       this.ocean = ocean;
       battleArea = new Grid(ocean.x, ocean.y);
+    }
+    public Board (){
+      
     }
     /// <summary>
     /// FindPlacesOnTheGrid becomes place fleet on the grid
