@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Library;
 
 namespace Library.src
 {/// <summary>
 /// BattleShip holds info about the ship
-///   based on the info in NavyAsset class ;)
 /// </summary>
   public class BattleShip
   {
-    
-      int length = 0;
-    string name = "SUNK";
-    bool sunk = false;
-    bool checkStatus;
-    List<Location> location; 
+    int length = 0;
+    string name = "Drop";
+    List<Location> location;
     public string Name { get => name; }
     public int Length { get => length; }
     public List<Location> Location { get => location; set => location = value; }
@@ -31,9 +23,9 @@ namespace Library.src
     {
       this.name = name;
       this.length = length;
-      location = new List<Location>();
+      location = new List<Location>(); //Filled if placed on the grid
       // make list of possible places (hor and ver) based on length of the ship
-      // and change the Gridcell according to Kind.Ship
+      // and change the Gridcell according to BoardPiece.Ship
     }
   }
 }

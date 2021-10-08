@@ -17,18 +17,17 @@ namespace Library.src.Harbor
     public void AddShip(BattleShip ship)
     {
       battleShips.Add(ship);
-      //battleArea.FindPlacesOnTheGrid(ship);
     }
 
     public void Show()
     {
       BattleShip vessel;
-      foreach (var boat in battleShips)
+      foreach (var ship in battleShips)
       {
-        vessel = boat;
-        Console.Write($"Ship : {boat.Name} \t length: {boat.Length}\t");
+        Console.Write($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
+        vessel = ship;
         foreach (var part in vessel.Location)
-          Console.Write($": {part.x}, {part.y}");
+          Console.Write($": {part.x},{part.y}");
         Console.WriteLine("");
       }
     }

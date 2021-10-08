@@ -9,28 +9,28 @@ using Library.src.Harbor;
 namespace Library
 {
   /// <summary>
-  /// initilaize the grid to Kind.Water sized by x,y parameeres
+  /// initilaize the grid to BoardPiece.Water sized by x,y parameeres
   /// </summary>
 
   public class Grid
   {
-    Kind [,] cells;
+    BoardPiece [,] cells;
     BoardSize gridSize;
-    public Kind[,] Cells { get => cells; }
+    public BoardPiece[,] Cells { get => cells; }
     public Grid(BoardSize gridSize)
     {
       this.gridSize = gridSize;
-      InitGrid(gridSize, Kind.Water);
+      InitGrid(gridSize, BoardPiece.Water);
     }
     public Grid(int xSize, int ySize)
     {
       gridSize.x = xSize;
       gridSize.y = ySize;
-      InitGrid(gridSize, Kind.Water);
+      InitGrid(gridSize, BoardPiece.Water);
     }
-    void InitGrid(BoardSize grid, Kind what)
+    void InitGrid(BoardSize grid, BoardPiece what)
     {
-      cells = new Kind[grid.x, grid.y];
+      cells = new BoardPiece[grid.x, grid.y];
 
       for (int i = 0; i < grid.x; i++)
       {
@@ -46,14 +46,14 @@ namespace Library
     /// <param name="armada"></param>
     public void PutFleetOnTheGrid(Fleet armada){
       foreach(var ship in armada.BattleShips)
-        FindPlacesOnTheGrid(ship);
+        PutShipOnTheGrid(ship);
     }
     /// <summary>
-    /// Holds a list of coordinates that will hold a ship one ship is randomply chosen from the list
+    /// Holds a list of coordinates that will hold a ship, one ship is randomply chosen from the list
     /// if the list is empty than there is no room for the ship of size 'length' on the grid
     /// the length property will provide a number from witch the ship wil start randomly
     /// </summary>
-    public void FindPlacesOnTheGrid(BattleShip ship)
+    public void PutShipOnTheGrid(BattleShip ship)
     { // hash table van maken ?
       List<tempPosition> possibillitys = new List<tempPosition>();
       FindY(possibillitys, ship);
@@ -62,7 +62,6 @@ namespace Library
       Console.WriteLine($"Ship : {ship.Name} \t length {ship.Length} \t Spaces : {possibillitys.Count}");
       if (possibillitys.Count > 0)
         PlaceBattleShip(possibillitys, ship);
-      ShowCells();
     }
     /// <summary>
     /// A space in the list of spaces has room ('spaceLemgth') for a ship of 'Length' size 
@@ -85,17 +84,20 @@ namespace Library
       {
         if (spaces[randomSpace].horizontal)
         {
-          cells[spaces[randomSpace].x + startPosition + i, spaces[randomSpace].y] = Kind.Ship;
+          cells[spaces[randomSpace].x + startPosition + i, spaces[randomSpace].y] = BoardPiece.Ship;
           ship.Location.Add((new Location() { x = spaces[randomSpace].x + startPosition + i, y = spaces[randomSpace].y }));
         }
         else
         {
-          cells[spaces[randomSpace].x, spaces[randomSpace].y + startPosition + i] = Kind.Ship;
+          cells[spaces[randomSpace].x, spaces[randomSpace].y + startPosition + i] = BoardPiece.Ship;
           ship.Location.Add(new Location(){x=spaces[randomSpace].x, y=spaces[randomSpace].y + startPosition + i });
         }
       }
       return true;
     }
+    /// <summary>
+    /// Just show on the console app the contens of the cells on the Grid
+    /// </summary>
     public void ShowCells()
     {
       char cellType;
@@ -103,11 +105,21 @@ namespace Library
       {
         for (int j = 0; j < gridSize.y; j++)
         {
-          cellType = (cells[i, j] == Kind.Water) ? ShipPart.SW : ShipPart.SM;
+          cellType = (cells[i, j] == BoardPiece.Water) ? ShipPart.SW : ShipPart.SM;
           Console.Write($"{cellType}");
         }
         Console.WriteLine("/n");
       }
+    }
+    /// <summary>
+    /// FindPlaces is the new yet to program method to replace FindX and FindY
+    /// return true if there is at least one space to place a ship
+    /// </summary>
+    /// <param name="possibillitys"></param>
+    /// <param name="Ship"></param>
+    bool FindPlaces(List<tempPosition> possibillitys, BattleShip Ship)
+    {
+      return true;
     }
     void FindX(List<tempPosition> possibillitys, BattleShip Ship)
     {
@@ -119,7 +131,7 @@ namespace Library
         s = 0; //start potetial space for ship in y richting
         while (j < gridSize.y - Ship.Length) //niet verder dan er ruimte is voor ship
         {
-          if ((cells[i, j++] != Kind.Water) | (j == gridSize.y - Ship.Length))
+          if ((cells[i, j++] != BoardPiece.Water) | (j == gridSize.y - Ship.Length))
           {
             //Console.Write($"Geen Water of eol: {cells[i, j]},");
             if (j + Ship.Length <= gridSize.y) // is er ruimte
@@ -139,7 +151,7 @@ namespace Library
         s = 0; //start potetial space for ship
         while (j < gridSize.x - Ship.Length) //niet verder dan er ruimte is voor ship
         {
-          if ((cells[j++, i] != Kind.Water) | (j == gridSize.x - Ship.Length))
+          if ((cells[j++, i] != BoardPiece.Water) | (j == gridSize.x - Ship.Length))
           {
             //Console.Write($"Geen Water of eol: {cells[i, j]},");
             if (j + Ship.Length <= gridSize.x) // is er ruimte
