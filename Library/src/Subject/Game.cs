@@ -24,6 +24,7 @@ namespace Library
       players.Add(player);
       Console.WriteLine($"{player.Name} entered the game.");
     }
+    /*
     public void AddHumanPlayer(string name)
     {
       players.Add(new Human(name));
@@ -34,6 +35,7 @@ namespace Library
       players.Add(new Computer(name));
       Console.WriteLine($"Computer {name} entered the game.");
     }
+    */
     public override void Update(Board sea) {
       Console.WriteLine($"Update from Game {sea.ToString() }");
     }

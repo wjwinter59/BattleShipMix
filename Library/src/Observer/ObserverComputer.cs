@@ -9,10 +9,11 @@ namespace Library
   public class ObserverComputer : IPlayer
   {
     string name;
-    public ObserverComputer(string name, ISubject subject)
+    public string Name { get => name; }
+    public ObserverComputer( ISubject subject, string name)
     {
       this.name = name;
-      subject.RegisterPlayer(this);//Register Player with a Board
+      subject.RegisterPlayer(this, name);//Register Player with a Board
     }
     public void Update(string name)
     {

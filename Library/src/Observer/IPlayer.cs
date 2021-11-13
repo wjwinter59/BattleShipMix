@@ -8,6 +8,8 @@ namespace Library
 
   public interface IPlayer
   {
+    public string Name { get; }
     void Update(string name);
   }
+  
 }

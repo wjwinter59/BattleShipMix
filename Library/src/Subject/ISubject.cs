@@ -11,7 +11,8 @@ namespace Library
   /// 
   public interface ISubject
   {
-    public void RegisterPlayer(IPlayer observer);
+    public void RegisterPlayer(IPlayer observer, string name);
+    //public void RegisterPlayer(IPlayer observer);
     public void RegiserBoard();
     void NotifyPlayers();
   }

@@ -11,26 +11,29 @@ namespace Library
   {
     List<IPlayer> players = new List<IPlayer>();
     Board board;
-    BoardSize sea; //sea als in de vazameling van oceanen
+    BoardSize sea; //sea als in de vazameling van oceanen, hoort hier niet.
     Fleet armada;
     Grid battleArea;
     public Subject(BoardSize sea)
     {
       this.sea = sea;
+      board = new Board(sea);
       battleArea = new Grid(sea.x, sea.y);
     }
     public Subject()
     {
-
+      sea = new BoardSize { x = 10, y = 10 };
+      board = new Board(sea);
+      battleArea = new Grid(sea.x, sea.y);
     }
     /// <summary>
     /// Registreer een bord bij het subject, bord kan appart worden samengesteld
     /// bord later toevoegen aan player want die hebben een 'eigen' bord en dat van de tegenstander
     /// </summary>
     /// <param name="ocean"></param>
-    public void RegiserBoard(BoardSize ocean)
+    public void RegiserBoard(Board board)
     {
-      board = new Board(ocean);
+      this.board = board;
     }
     /// <summary>
     /// register default Board
@@ -39,9 +42,11 @@ namespace Library
     {
       board = new Board(sea);
     }
-
-    public void RegisterPlayer(IPlayer observer)
+    public void RegisterPlayer(IPlayer observer, string name)
+    //public void RegisterPlayer(IPlayer observer)
     {
+      Console.WriteLine($"Adding {observer.GetType().Name} name : {name}");
+      //observer.RegiserBoard(board);
       players.Add(observer);
     }
 
@@ -49,7 +54,18 @@ namespace Library
     {
       Console.WriteLine($"Notifiing players");
       foreach (var player in players)
-        player.Update(player.ToString());
+      {
+        Console.WriteLine($"Notifying : {player.Name} to play it's move");
+        player.Update(player.Name);
+      }
+    }
+    public void ShowPlayers()
+    {
+      Console.WriteLine($"Players :");
+      foreach (var player in players)
+      {
+        Console.WriteLine($"\t :{player.Name}");
+      }
     }
 
     /// <summary>
