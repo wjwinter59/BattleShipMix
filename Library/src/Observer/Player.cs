@@ -8,6 +8,7 @@ namespace Library
 
   public abstract class Player
   {
+    public Game game;// test 
     public Board zee;// test nog uitwerken met propertie ?
     private string name;
     public string Name
@@ -17,9 +18,15 @@ namespace Library
     }
 
     // Constructor
+    public Player() { }
     protected Player(string name)
     {
       this.name = name;
+    }
+    public Player(string name, Board sea)
+    {
+      this.name = name;
+      this.zee = sea;
     }
 
     public abstract void Update(Board sea);

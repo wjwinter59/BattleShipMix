@@ -7,7 +7,7 @@ namespace Library
 {
   public class Board
   {
-    BoardSize ocean;
+    BoardSize ocean ;
     Fleet armada;
     Grid battleArea;
     public Board(BoardSize ocean)

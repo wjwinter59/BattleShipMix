@@ -7,13 +7,14 @@ namespace Library
   /// <summary>
   /// The 'ConcreteSubject' class
   /// </summary>
-  public class Game 
+  public class Game : Player
   {
     List<Player> players = new List<Player>();
     List<BattleShip> armada = new();
     //Board sea;
     BoardSize dimension;
     // Constructor
+
     public Game(BoardSize dimension)// : base(new BoardSize { x = 10, y = 10 })
     {
       this.dimension=dimension; //waarschijnlijk overbodig
@@ -32,6 +33,9 @@ namespace Library
     {
       players.Add(new Computer(name));
       Console.WriteLine($"Computer {name} entered the game.");
+    }
+    public override void Update(Board sea) {
+      Console.WriteLine($"Update from Game {sea.ToString() }");
     }
     public void ShowPlayers(){
       foreach (var player in players)
