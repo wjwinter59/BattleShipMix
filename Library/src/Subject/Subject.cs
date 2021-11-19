@@ -9,20 +9,20 @@ namespace Library
 /// </summary>
   public class Subject : ISubject
   {
-    List<IPlayer> players = new List<IPlayer>();
+    List<IObserver> players = new List<IObserver>();
     Board board;
     BoardSize sea; //sea als in de vazameling van oceanen, hoort hier niet.
     Fleet armada;
     Grid battleArea;
-    public Subject(BoardSize sea)
+    public Subject(Board sea)
     {
-      this.sea = sea;
-      board = new Board(sea);
-      battleArea = new Grid(sea.x, sea.y);
+      this.sea = sea.Ocean;
+      board = sea;
+      battleArea = new Grid(sea.Ocean.x, sea.Ocean.y);
     }
     public Subject()
     {
-      sea = new BoardSize { x = 10, y = 10 };
+      this.sea = new BoardSize { x = 10, y = 10 };
       board = new Board(sea);
       battleArea = new Grid(sea.x, sea.y);
     }
@@ -42,10 +42,11 @@ namespace Library
     {
       board = new Board(sea);
     }
-    public void RegisterPlayer(IPlayer observer, string name)
+    public void RegisterPlayer(IObserver observer, string name)
     //public void RegisterPlayer(IPlayer observer)
     {
       Console.WriteLine($"Adding {observer.GetType().Name} name : {name}");
+
       //observer.RegiserBoard(board);
       players.Add(observer);
     }
@@ -56,7 +57,7 @@ namespace Library
       foreach (var player in players)
       {
         Console.WriteLine($"Notifying : {player.Name} to play it's move");
-        player.Update(player.Name);
+        player.Update(player.Name); //Checken op lost ??
       }
     }
     public void ShowPlayers()
@@ -64,7 +65,7 @@ namespace Library
       Console.WriteLine($"Players :");
       foreach (var player in players)
       {
-        Console.WriteLine($"\t :{player.Name}");
+        Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
       }
     }
 

@@ -10,6 +10,9 @@ namespace Library
     BoardSize ocean ;
     Fleet armada;
     Grid battleArea;
+
+    public BoardSize Ocean { get {return ocean; } }
+
     public Board(BoardSize ocean)
     {
       this.ocean = ocean;

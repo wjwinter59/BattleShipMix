@@ -2,6 +2,7 @@
 
 namespace Library.src
 {
+  public enum Contestant { Human, Computer};
   public enum BoardPiece { Water, Splash, Ship, Bommed };
   public struct BoardSize
   {
