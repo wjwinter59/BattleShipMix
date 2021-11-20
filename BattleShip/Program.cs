@@ -15,10 +15,10 @@ namespace BattleFleetHarbor
 
       Subject Battle = new Subject(Pacific);
       //Mogwlijke vormen van players
+      Observer Player1 = new Observer(Battle, "Ibmmetje");
       Observer Opponent1 = new Observer(Battle);
-      Observer Opponent2 = new Observer(Battle, "Ibmmetje");
-      Observer Player = new Observer(Battle, "Willelm", Contestant.Human);
       Observer Player2 = new Observer(Battle);
+      Observer Opponent2 = new Observer(Battle, "Willelm", Contestant.Human);
       Player2.ChangeFleet(new List<BattleShip>  {
                           new BattleShip("Drager", 5),
                           new BattleShip("Vechtboot", 4),

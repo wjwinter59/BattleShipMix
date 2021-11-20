@@ -40,6 +40,12 @@ namespace Library
         }
       }
     }
+
+    public bool PlayComputer(Grid battleField)
+    {
+
+      return false;
+    }
     /// <summary>
     /// New method for adding a Fleet to the board
     /// </summary>

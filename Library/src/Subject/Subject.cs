@@ -45,11 +45,13 @@ namespace Library
     public bool NotifyPlayers()
     {
       Console.WriteLine($"Notifiing players");
+      //while { }
+
       foreach (var player in players)
       {
-        Console.WriteLine($"Notifying : {player.Name} 's move");
-        if (player.Update(player.Name)) 
-          return true; // Er is een winnaar
+        Console.WriteLine($"Notifying : {player.Name} to play it's move");
+        if (player.Update(player.Name))
+          return true; //Checken op lost ??
       }
       return false;
     }

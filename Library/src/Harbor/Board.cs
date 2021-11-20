@@ -11,6 +11,7 @@ namespace Library
     Grid battleArea;
 
     public BoardSize Sea { get { return sea; } }
+    public Grid BattleArea { get => battleArea; }
 
     public Board(BoardSize ocean)
     {
@@ -22,26 +23,25 @@ namespace Library
       this.sea = new BoardSize { x = 10, y = 10 };
       battleArea = new Grid(sea.x, sea.y);
     }
+    public bool PlayMove(Grid battleField, Contestant playerType)
+    {
+      if (playerType == Contestant.Computer)
+      {
+        Console.WriteLine($"Playing {playerType}'s move");
+        return battleField.PlayComputer(battleField);
+      }
+      else
+        Console.WriteLine($"Scipping  {playerType}'s move");
+
+      return false;
+    }
     /// <summary>
     /// FindPlacesOnTheGrid becomes place fleet on the grid
     /// </summary>
     /// <param name="armada"></param>
-    public void AddFleet(Fleet armada)
+    public void RegisterFleet(Fleet armada)
     {
       battleArea.PutFleetOnTheGrid(armada);
     }
-    /// <summary>
-    /// Add a 'named' fleet by using a list of ships.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="ships"></param>
-    
-    /*
-    public void AddFleet(string name, List<BattleShip> ships)
-    {
-      armada = new Fleet(name, ships);
-      battleArea.PutFleetOnTheGrid(armada);
-    }
-    */
   }
 }

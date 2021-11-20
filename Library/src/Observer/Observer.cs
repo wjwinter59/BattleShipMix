@@ -11,6 +11,7 @@ namespace Library
   {
     string name;
     Contestant playerType;
+    Board water;
     Fleet armada;
 
     public string Name { get { return name; } set { name = value; } }
@@ -18,22 +19,10 @@ namespace Library
 
     public Observer(ISubject subject)
     {
-      /*
-            this.name = "Dummy";
-            armada = new();
-            this.playerType = Contestant.Computer;
-            subject.RegisterPlayer(this);//Register Player with a subject
-      */
       SetupObserver(subject, "Dummy", Contestant.Computer);
     }
     public Observer(ISubject subject, string name)
     {
-      /*
-            this.name = name;
-            armada = new();
-            this.playerType = Contestant.Computer;
-            subject.RegisterPlayer(this);//Register Player with a subject
-      */
       SetupObserver(subject, name, Contestant.Computer);
     }
 
@@ -46,26 +35,24 @@ namespace Library
     {
       this.name = name;
       this.playerType = playerType;
+      water = new Board();
       armada = new();
+      water.RegisterFleet(new Fleet());
       subject.RegisterPlayer(this);
     }
 
     /// <summary>
-    /// Start the move of player 'name', return true when the player has won
+    /// Start the move of player 'name', return 'true' when the player has won
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
     public bool Update(string name)
     {
-      Console.WriteLine($"Update name from Observer: {name}");
+      bool win = false;
+      Console.WriteLine($"Start {playerType}'s move of {name}");
+      win = water.PlayMove(water.BattleArea, playerType);
       return false; // standaard op nog 'geen  winnaar'
     }
-    /// <summary>
-    /// Add a 'named' fleet by using a list of ships.
-    /// Method should be added to the Board
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="ships"></param>
     public void ShowFleet()
     {
       armada.Show();
