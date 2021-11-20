@@ -11,9 +11,10 @@ namespace Library
   {
 
     public string Name { get; set; }
-    public Contestant PlayerType {get;set;}
+    public Contestant PlayerType { get; set; }
 
-    void Update(string name);
+    bool Update(string name);
+    public void ShowFleet();
   }
-  
+
 }

@@ -5,11 +5,21 @@ namespace Library.src.Harbor
 {
   public class Fleet
   {
-    string name = "";
+    string name = "Default ships";
     List<BattleShip> battleShips;
-    public List<BattleShip> BattleShips{ get => battleShips; }
-    
-    public Fleet (string name, List<BattleShip> battleShips)
+    public List<BattleShip> BattleShips { get => battleShips;set => battleShips = value; }
+    public Fleet()
+    {
+      battleShips = new List<BattleShip>{
+        new BattleShip("Carrier", 5),
+        new BattleShip("Battleship", 4),
+        new BattleShip("Destroyer", 3),
+        new BattleShip("Submarine", 3),
+        new BattleShip("Patrolboat", 2)
+      };
+    }
+
+    public Fleet(string name, List<BattleShip> battleShips)
     {
       this.name = name;
       this.battleShips = battleShips;

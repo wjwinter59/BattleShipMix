@@ -12,9 +12,9 @@ namespace Library
   public interface ISubject
   {
     public void RegisterPlayer(IObserver observer, string name);
-    //public void RegisterPlayer(IPlayer observer);
-    public void RegiserBoard();
-    void NotifyPlayers();
+    public void RegisterPlayer(IObserver observer);
+    public void RegiserBoard(Board board); // Bij de battle
+    bool NotifyPlayers();
   }
 }
 
