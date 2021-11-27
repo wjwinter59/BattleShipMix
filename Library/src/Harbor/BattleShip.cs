@@ -25,7 +25,7 @@ namespace Library.src
       this.length = length;
       location = new List<Location>(); //Filled if placed on the grid
       // make list of possible places (hor and ver) based on length of the ship
-      // and change the Gridcell according to BoardPiece.Ship
+      // and change the Gridcell according to GamePiece.Ship
     }
   }
 }

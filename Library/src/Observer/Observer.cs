@@ -30,6 +30,11 @@ namespace Library
     {
       SetupObserver(subject, name, playerType);
     }
+    public Observer(ISubject subject, Fleet fleet, string name, Contestant playerType)
+    {
+      SetupObserver(subject, name, playerType);
+      armada = fleet;
+    }
 
     void SetupObserver(ISubject subject, string name, Contestant playerType)
     {

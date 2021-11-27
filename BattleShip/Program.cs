@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Library;
 using Library.src;
+using Library.src.Harbor;
 
 namespace BattleFleetHarbor
 {
@@ -12,22 +13,23 @@ namespace BattleFleetHarbor
       //Subject moet een 1 addplayer method hebben t.b.v. computer of human
 
       Board Pacific = new(new BoardSize { x = 10, y = 10 });
+      Fleet Vloot = new("Middeleeuwen", new List<BattleShip> {
+                          new BattleShip("Drager", 6),
+                          new BattleShip("Vechtboot", 9),
+                          new BattleShip("Kapotmaker", 3),
+                          new BattleShip("Duikboat", 3),
+                          new BattleShip("Vluchtboat", 4)
+                        }
+                        );
 
       Subject Battle = new Subject(Pacific);
       //Mogwlijke vormen van players
       Observer Player1 = new Observer(Battle, "Ibmmetje");
       Observer Opponent1 = new Observer(Battle);
       Observer Player2 = new Observer(Battle);
-      Observer Opponent2 = new Observer(Battle, "Willelm", Contestant.Human);
-      Player2.ChangeFleet(new List<BattleShip>  {
-                          new BattleShip("Drager", 5),
-                          new BattleShip("Vechtboot", 4),
-                          new BattleShip("Kapotmaker", 3),
-                          new BattleShip("Duikboat", 3),
-                          new BattleShip("Vluchtboat", 2)
-                        }
-      );
+      Observer Opponent2 = new Observer(Battle, Vloot, "Willelm", Contestant.Human);
 
+      //Player2.ChangeFleet(      );
       Battle.ShowPlayers();
       Battle.NotifyPlayers();
     }

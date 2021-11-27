@@ -3,16 +3,16 @@
 namespace Library.src
 {
   public enum Contestant { Human, Computer};
-  public enum BoardPiece { Water, Splash, Ship, Bommed };
+  public enum GamePiece { Water, Splash, Ship, Bommed };
   public struct BoardSize
   {
     public int x;
     public int y;
   }
   /// <summary>
-  /// tempPosition holds information in order to determine where to place a ship on the grid.
+  /// freeSpace holds information in order to determine where to place a ship on the grid.
   /// </summary>
-  public struct tempPosition
+  public struct freeSpace
   {
     public int x;
     public int y;
