@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Library;
-using Library.src;
-using Library.src.Harbor;
 
-namespace Library
+using Library.src.Harbour;
+using Library.src.Subject;
+
+namespace Library.src.Observer
 {
   public class Observer : IObserver
   {

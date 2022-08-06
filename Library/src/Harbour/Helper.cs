@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Library.src
+namespace Library.src.Harbour
 {
-  public enum Contestant { Human, Computer};
+  public enum Contestant { Human, Computer };
   public enum GamePiece { Water, Splash, Ship, Bommed };
   public struct BoardSize
   {
@@ -10,9 +10,9 @@ namespace Library.src
     public int y;
   }
   /// <summary>
-  /// freeSpace holds information in order to determine where to place a ship on the grid.
+  /// Space holds information in order to determine where to place a ship on the grid.
   /// </summary>
-  public struct freeSpace
+  public struct Space
   {
     public int x;
     public int y;
@@ -21,7 +21,7 @@ namespace Library.src
   }
   public static class ShipPart
   {
-    public const char SL = '\u25C4'; // '\u25D6'; // Ship left
+    public const char SL = '\u25C4'; //'\u25D6'; // Ship left
     public const char SR = '\u25BA'; //'\u25D7'; // Ship rigth
     public const char SU = '\u25B2'; //'\u2BCA'; // Ship Up
     public const char SD = '\u25BC'; //'\u2BCB'; // Ship down

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Library.src;
-using Library.src.Harbor;
 
-namespace Library
+namespace Library.src.Harbour
 {
   public class Board
   {

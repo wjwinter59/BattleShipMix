@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Library.src;
-using Library.src.Harbor;
+using Library.src.Harbour;
+using Library.src.Observer;
 
-namespace Library
+namespace Library.src.Subject
 {/// <summary>
 /// Is copy of Board, trying to creaate two inplemantations, by abstract and interface
 /// </summary>

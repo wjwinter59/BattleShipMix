@@ -1,7 +1,7 @@
 using System;
-using Library.src;
+using Library.src.Harbour;
 
-namespace Library
+namespace Library.src.Observer
 {
   /// <summary>
   /// The 'Observer' interface

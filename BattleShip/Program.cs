@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Library;
-using Library.src;
-using Library.src.Harbor;
+using Library.src.Subject;
+using Library.src.Observer;
+using Library.src.Harbour;
 
-namespace BattleFleetHarbor
+namespace BattleShipGame
 {
   class Program
   {
@@ -15,10 +15,10 @@ namespace BattleFleetHarbor
       Board Pacific = new(new BoardSize { x = 10, y = 10 });
       Fleet Vloot = new("Middeleeuwen", new List<BattleShip> {
                           new BattleShip("Drager", 6),
-                          new BattleShip("Vechtboot", 9),
+                          new BattleShip("Vechter", 7),
                           new BattleShip("Kapotmaker", 3),
-                          new BattleShip("Duikboat", 3),
-                          new BattleShip("Vluchtboat", 4)
+                          new BattleShip("Duiker", 6),
+                          new BattleShip("Zoeker", 6)
                         }
                         );
 

@@ -1,0 +1,62 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "",
+        "title": "ClassDiagram1",
+        "version": ""
+    },
+    "servers": [],
+    "paths": {
+        "/ISubject": {}
+    },
+    "components": {
+        "schemas": {
+            "Subject": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "players": {
+                        "items": {
+                            "description": "missing description",
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/List"
+                                },
+                                {
+                                    "type": "object"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "minItems": 1,
+                        "example": "new List<IObserver>()undefinedundefined"
+                    },
+                    "board": {
+                        "description": "missing description",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Board"
+                            },
+                            {
+                                "type": "object"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "players"
+                ]
+            },
+            "List": {
+                "description": "",
+                "type": "object",
+                "properties": {}
+            },
+            "Board": {
+                "description": "",
+                "type": "object",
+                "properties": {}
+            }
+        }
+    }
+}
