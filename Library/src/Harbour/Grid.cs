@@ -12,7 +12,8 @@ namespace Library.src.Harbour
 
 	public class Grid
 	{
-		GamePiece[,] cells;
+		GamePiece[,] cells; // Changes to list in version 2 ?
+		List<GamePiece> pieceList; // For second version
 		BoardSize gridSize;
 		public GamePiece[,] Cells { get => cells; }
 		public Grid(BoardSize gridSize)
