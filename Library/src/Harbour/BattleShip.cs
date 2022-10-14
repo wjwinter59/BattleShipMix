@@ -9,13 +9,15 @@ namespace Library.src.Harbour
     public class BattleShip
     {
         int length = 0;
-        string name = "Drop";
-        List<Location> location;
+        string name = "Boem"; //what's in a name
+        List<Location> locations;
         public string Name { get => name; }
         public int Length { get => length; }
-        public List<Location> Location
+
+        //Oplossen met iterator
+        public List<Location> Locations
         {
-            get => location;
+            get => locations;
             //set => location = value; 
         }
         /// <summary>
@@ -27,9 +29,9 @@ namespace Library.src.Harbour
         {
             this.name = name;
             this.length = length;
-            location = new List<Location>(); // List of locations when placed on the grid. 
-                                             // make list of possible places (hor and ver) based on length of the ship
-                                             // and change the Gridcell according to GamePiece.Ship
+            locations = new List<Location>(); // List of locations when placed on the grid. 
+                                              // make list of possible places (hor and ver) based on length of the ship
+                                              // and change the Gridcell according to GamePiece.Ship
         }
     }
 }
