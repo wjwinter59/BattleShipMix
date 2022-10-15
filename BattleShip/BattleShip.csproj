@@ -1,6 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Doc\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Doc\**" />
+    <None Remove="Data\**" />
+    <None Remove="Doc\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 

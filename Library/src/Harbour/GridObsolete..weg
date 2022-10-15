@@ -18,17 +18,19 @@ namespace Library.src.Harbour
         GamePiece[,] cells; // Changes to list in version 2 ?
         BoardSize gridSize;
         public GamePiece[,] Cells { get => cells; }
-        public Grid(BoardSize gridSize)
+
+        public Wage(BoardSize gridSize)
         {
             this.gridSize = gridSize;
             InitGrid(gridSize, GamePiece.Water);
         }
-        public Grid(int xSize, int ySize)
+        public Wage(int xSize, int ySize)
         {
             gridSize.x = xSize;
             gridSize.y = ySize;
             InitGrid(gridSize, GamePiece.Water);
         }
+ 
         void InitGrid(BoardSize grid, GamePiece what)
         {
             cells = new GamePiece[grid.x, grid.y];
@@ -41,7 +43,7 @@ namespace Library.src.Harbour
                 }
             }
         }
-        public bool PlayComputer(Grid battleField)
+        public bool PlayComputer(Wage battleField)
         {// Doe een zet 
             return false;
         }
@@ -77,7 +79,7 @@ namespace Library.src.Harbour
                 foreach (var cel in cells)
                 {
                     if (cel != GamePiece.Water)
-                        Console.Write($"{cel}"); // Contens of Grid
+                        Console.Write($"{cel}"); // Contens of Wage
                 }
                 return true;
             }
@@ -120,7 +122,7 @@ namespace Library.src.Harbour
             return true;
         }
         /// <summary>
-        /// Just show on the console app the contens of the cells on the Grid
+        /// Just show on the console app the contens of the cells on the Wagegrid
         /// </summary>
         public void ShowCells()
         {

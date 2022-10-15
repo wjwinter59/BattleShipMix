@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Library.src.Harbour
+namespace Library.src.Subject
 {/// <summary>
  /// BattleShip holds info about the ship
  /// </summary>

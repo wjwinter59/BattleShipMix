@@ -54,7 +54,7 @@ namespace Library.src.Observer
         {
             bool win = false;
             Console.WriteLine($"Start {playerType}'s move of {name}");
-            win = water.PlayMove(water.BattleArea, playerType);
+            // win = water.PlayMove(water.BattleArea, playerType);
             return false; // standaard op nog 'geen  winnaar'
         }
         public void ShowFleet()

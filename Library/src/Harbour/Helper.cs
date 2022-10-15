@@ -4,6 +4,7 @@ namespace Library.src.Harbour
 {
   public enum Contestant { Human, Computer };
   public enum GamePiece { Water, Splash, Ship, Bommed };
+  public enum ShipPart { Stearn, Midship, Bow, Gone };
   public struct BoardSize
   {
     public int x;
@@ -19,7 +20,7 @@ namespace Library.src.Harbour
     public int spaceLength;
     public bool horizontal;
   }
-  public static class ShipPart
+  public static class ShipSymbol
   {
     public const char SL = '\u25C4'; //'\u25D6'; // Ship left
     public const char SR = '\u25BA'; //'\u25D7'; // Ship rigth
@@ -30,7 +31,7 @@ namespace Library.src.Harbour
     public const char SW = '\u2248'; // Water
     public static void Show()
     {
-      Console.WriteLine($"{ShipPart.SD.GetType()} {ShipPart.SL}, {ShipPart.SR}, {ShipPart.SU}, {ShipPart.SW}");
+      Console.WriteLine($"{ShipSymbol.SD.GetType()} {ShipSymbol.SL}, {ShipSymbol.SR}, {ShipSymbol.SU}, {ShipSymbol.SW}");
     }
   }
 }
