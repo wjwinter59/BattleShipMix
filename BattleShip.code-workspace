@@ -2,10 +2,15 @@
 	"folders": [
 		{
 			"path": "."
-		},{
+		},
+		{
 			"path": "BattleShip"
-		},{
+		},
+		{
 			"path": "Library"
+		},
+		{
+			"path": "XTest"
 		}
 	],
 	"settings": {}

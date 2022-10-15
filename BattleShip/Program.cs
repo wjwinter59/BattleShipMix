@@ -11,7 +11,6 @@ namespace BattleShipGame
     static void DoNewGame()
     {
       //Subject moet een 1 addplayer method hebben t.b.v. computer of human
-
       Board Pacific = new(new BoardSize { x = 10, y = 10 });
       Fleet Armada = new("Middeleeuwen", new List<BattleShip> {
                           new BattleShip("Drager", 6),
@@ -21,14 +20,15 @@ namespace BattleShipGame
                           new BattleShip("Vlot", 1)
                         }
                         );
-
       Subject Battle = new Subject(Pacific);
+
+      Armada.Show();
+
       //Mogwlijke vormen van players
       Observer Player1 = new Observer(Battle, "IbmMetje");
       Observer Player2 = new Observer(Battle, "Rene", Contestant.Human);
       Observer Player3 = new Observer(Battle, Armada, "Willelm", Contestant.Human);
 
-      //Player2.ChangeFleet(      );
       Battle.ShowPlayers();
       Battle.NotifyPlayers();
     }
