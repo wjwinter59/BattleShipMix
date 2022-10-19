@@ -5,35 +5,24 @@ namespace Library.src.Subject
 {
 	public class Board
 	{
-		BoardSize sea; //sea als in de vazameling van oceanen
-
-		public BoardSize Sea { get { return sea; } }
-		public Board(BoardSize ocean)
-		{
-			this.sea = ocean;
-		}
+		BoardSize battleArea;  // 
+		Fleet navalFleet;
+		public BoardSize BattleArea { get { return battleArea; } }
+		public Fleet NavalFleet { get { return navalFleet; }  set { navalFleet = value; } }
 		public Board()
 		{
-			this.sea = new BoardSize { x = 10, y = 10 };
+			battleArea = new BoardSize { x = 10, y = 10 };
+			navalFleet = new Fleet();
+			LaunchFleet();
 		}
-		/*
-				public bool PlayMove(Wage battleField, Contestant playerType)
-				{
-					if (playerType == Contestant.Computer)
-					{
-						Console.WriteLine($"Playing {playerType}'s move");
-						return battleField.PlayComputer(battleField);
-					}
-					else
-						Console.WriteLine($"Scipping  {playerType}'s move");
-
-					return false;
-				}
-		*/
-		public void RegisterFleet(Fleet armada)
-		{
-			// battleArea.PutFleetOnTheGrid(armada);
-			armada.Show();
+		/// <summary>
+		/// Put the Fleet into the battlearea :)
+		/// or not.
+		/// </summary>
+		/// <returns></returns>
+		Boolean LaunchFleet() {
+		// uitwerken, hier moeten de battleships op het bord worden gezet.
+			return true;
 		}
 	}
 }

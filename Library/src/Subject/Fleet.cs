@@ -11,12 +11,12 @@ namespace Library.src.Subject
         public Fleet()
         {
             battleShips = new List<BattleShip>{
-        new BattleShip("Carrier", 5),
-        new BattleShip("Battleship", 4),
-        new BattleShip("Destroyer", 3),
-        new BattleShip("Submarine", 3),
-        new BattleShip("Patrolboat", 2)
-      };
+                new BattleShip("Carrier", 5),
+                new BattleShip("Battleship", 4),
+                new BattleShip("Destroyer", 3),
+                new BattleShip("Submarine", 3),
+                new BattleShip("Patrolboat", 2)
+            };
         }
 
         public Fleet(string name, List<BattleShip> battleShips)

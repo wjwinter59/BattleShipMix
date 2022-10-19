@@ -6,16 +6,16 @@ using Library.src.Observer;
 
 namespace Library.src.Subject
 {
-  /// <summary>
-  /// The interface class
-  /// </summary>
-  /// 
-  public interface ISubject
-  {
-    public void RegisterPlayer(IObserver observer, string name);
-    public void RegisterPlayer(IObserver observer);
-    public void RegiserBoard(Board board); // Bij de battle
-    bool NotifyPlayers();
-  }
+	/// <summary>
+	/// The interface class
+	/// </summary>
+	/// 
+	public interface ISubject
+	{
+		public void RegisterPlayer(IObserver observer, string name);
+		public void RegisterPlayer(IObserver observer);
+		bool NotifyPlayers();
+		public void ShowFleet(Fleet navalShips);
+	}
 }
 
