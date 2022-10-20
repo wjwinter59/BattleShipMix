@@ -29,6 +29,7 @@ namespace Library.src.Subject
             battleShips.Add(ship);
         }
 
+
         public void Show()
         {
             BattleShip vessel;
@@ -41,5 +42,34 @@ namespace Library.src.Subject
                 Console.WriteLine("");
             }
         }
+    	public Boolean Embark(List<BattleShip> fleet)
+		{
+			List<Location> los;   // List Occupied places
+			List<Location> las; // List available spaces
+			foreach (var ship in fleet)
+			{
+				los = FindOccupied(fleet);
+				las = GetEmptySpotsList(los);
+			}
+            return true;
+        }
+     	/// <summary>
+		/// Build list of locations retrieved from  all Battleships
+		/// </summary>
+		/// <param name="fleet"></param>
+		/// <returns></returns>
+		List<Location> FindOccupied(List<BattleShip> fleet)
+		{
+			List<Location> tmpList = new();
+			foreach (var ship in fleet)
+				tmpList.AddRange(ship.Locations);
+			return tmpList;
+		}
+		List<Location> GetEmptySpotsList(List<Location> locations)
+		{
+			List<Location> tmpList = new();
+			return tmpList;
+		}
+
     }
 }
