@@ -12,9 +12,16 @@ namespace Library
 {
   public class Location
   {
-    public int x { get; set; } = -1;
-    public int y { get; set; } = -1;
-    public ShipPart Part { get; set; }
+    int x, y;
+    ShipPart part;
+    public int X { get { return x; } set { x = value; } } 
+    public int Y { get { return y; } set { y = value; } } 
+		public ShipPart Part { get; set; }
 		// bool hit=false;
+    public Location (int x, int y, ShipPart part){
+      this.x = x;
+      this.y = y;
+      this.part = part;
+    }
 	}
 }

@@ -12,41 +12,37 @@ namespace Library.src.Subject
  /// </summary>
 	public class Subject : ISubject
 	{
-		List<IObserver> players = new List<IObserver>();
+		List<IObserver> players=new List<IObserver>();
 		private Board board;
-		private Fleet fleet;
-		public Subject() {
+		public Subject()
+		{
 			board = new Board();
 		}
 		public Subject(Board board)
 		{
 			this.board = board;
 		}
-		public Subject(Board board, Fleet fleet)
-		{
-			this.board = board;
-			this.fleet = fleet;
-		}
-
 		public void RegisterPlayer(IObserver observer, string name)
 		{
-			//Console.WriteLine($"Adding {observer.GetType().Name} name : {name}");
 			observer.Name = name;
-			observer.BattleGround = new Board ();
+			observer.PrivateBoard = new Board();
 			players.Add(observer);
 		}
 
 		public void RegisterPlayer(IObserver observer)
 		{
-			//Console.WriteLine($"Adding default {observer.GetType().Name} name : {observer.Name}");
 			players.Add(observer);
 		}
+		/// <summary>
+		/// Nog helemaal uitwerken 
+		/// </summary>
+		/// <returns></returns>
 		public bool NotifyPlayers()
 		{
-			Console.WriteLine($"Notifiing players");
+			Console.WriteLine($"Notifying players");
 			foreach (var player in players)
 			{
-				Console.WriteLine($"Notifying : {player.Name} to play it's move");
+				Console.WriteLine($"Notifying PLayer : {player.Name} ");
 				if (player.Update(player.Name))
 					return true; //Checken op lost ??
 			}
@@ -58,11 +54,13 @@ namespace Library.src.Subject
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
-				ShowFleet(player.BattleGround.NavalFleet);
+				ShowFleet(player.PrivateBoard.NavalFleet);
 			}
 		}
-		public void ShowFleet(Fleet navalShips){
-			foreach (var ship in navalShips.BattleShips){
+		public void ShowFleet(Fleet navalShips)
+		{
+			foreach (var ship in navalShips.BattleShips)
+			{
 				Console.WriteLine($"\t :{ship.Name}, Length  {ship.Length} Sunk ? {ship.Sunk}");
 			}
 		}

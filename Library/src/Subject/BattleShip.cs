@@ -32,7 +32,7 @@ namespace Library.src.Subject
 			Console.WriteLine($"Name: {Name}");
 			Console.Write($"Locations : ");
 			foreach (var location in Locations)
-				Console.Write($"x: {location.x} y: {location.y} ");
+				Console.Write($"x: {location.X} y: {location.Y} ");
 		}
 	}
 }

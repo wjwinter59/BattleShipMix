@@ -14,7 +14,7 @@ namespace Library.src.Observer
 
 		public string Name { get; set; }
 		public Contestant PlayerType { get; set; }
-		public Board BattleGround { get; set; } 
+		public Board PrivateBoard { get; set; } 
 		bool Update(string name);
 		public void ShowFleet();
 	}

@@ -5,7 +5,7 @@ namespace Library.src.Harbour
 {
 	public enum Contestant { Human, Computer };
 	public enum GamePiece { Water, Splash, Ship, Bommed };
-	public enum ShipPart { Stearn, Midship, Bow, Gone };
+	public enum ShipPart { Stearn, Midship, Bow, Gone, Overboard };
 	public struct BoardSize
 	{
 		public int x;

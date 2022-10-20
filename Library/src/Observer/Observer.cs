@@ -10,10 +10,10 @@ namespace Library.src.Observer
 	{
 		string name;
 		Contestant playerType;
-		private Board battleGround;
+		private Board privateBoard;
 
-		private Fleet armada = new("Middeleeuwen",
-		new List<BattleShip> {
+		private Fleet privateFleet = new("Middeleeuwen",
+			new List<BattleShip> {
 					new BattleShip("Drager", 6),
 					new BattleShip("Vechter", 7),
 					new BattleShip("Kapotmaker", 3),
@@ -22,37 +22,32 @@ namespace Library.src.Observer
 		}
 	);
 		public string Name { get { return name; } set { name = value; } }
-		public Fleet Armada { get { return armada; } set { armada = value; } }
-		public Board BattleGround { get { return battleGround; } set { battleGround = value; } } 
+		public Fleet PrivateFleet { get { return privateFleet; } set { privateFleet = value; } }
+		public Board PrivateBoard { get { return privateBoard; } set { privateBoard = value; } }
 		public Contestant PlayerType { get { return playerType; } set { playerType = value; } }
-		public Observer(ISubject subject)
+
+		public Observer(string name)
 		{
-			SetupObserver(subject, "Computer Dummy", Contestant.Computer);
+			SetupObserver(name, Contestant.Computer);
 		}
-		public Observer(ISubject subject, string name)
+		public Observer(string name, Contestant playerType)
 		{
-			SetupObserver(subject, name, Contestant.Computer);
+			SetupObserver(name, playerType);
 		}
-		public Observer(ISubject subject, string name, Contestant playerType)
-		{
-			SetupObserver(subject, name, playerType);
-		}
-		void SetupObserver(ISubject subject, string name, Contestant playerType)
+		void SetupObserver(string name, Contestant playerType)
 		{
 			this.name = name;
 			this.playerType = playerType;
-			this.battleGround=new Board();
-			subject.RegisterPlayer(this);
+			this.privateBoard = new Board();
 		}
-
+		// Update is play move
 		public bool Update(string name)
 		{
-			// bool win = false;
-			Console.WriteLine($"Start {playerType}'s move of {name}");
-			// win = water.PlayMove(water.BattleArea, playerType);
-			return false; // standaard op nog 'geen  winnaar'
+			Console.WriteLine($"Start player {name}'s Update type player {playerType}");
+			return false;
 		}
-		public void ShowFleet(){
+		public void ShowFleet()
+		{
 			Console.WriteLine("Ëmpty fleet");
 		}
 	}

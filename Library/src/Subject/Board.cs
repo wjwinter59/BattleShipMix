@@ -15,7 +15,7 @@ namespace Library.src.Subject
 		{
 			battleArea = new BoardSize { x = 10, y = 10 };
 			navalFleet = new Fleet();
-			navalFleet.Embark(navalFleet.BattleShips);
+			navalFleet.SetSail(navalFleet.BattleShips);
 		}
 	}
 }
