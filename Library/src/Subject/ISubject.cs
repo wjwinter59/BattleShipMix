@@ -15,7 +15,7 @@ namespace Library.src.Subject
 		public void RegisterPlayer(IObserver observer, string name);
 		public void RegisterPlayer(IObserver observer);
 		bool NotifyPlayers();
-		public void ShowFleet(Fleet navalShips);
+		// public void ShowFleet(Fleet navalShips);
 	}
 }
 

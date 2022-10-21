@@ -10,18 +10,19 @@ using Library.src.Harbour;
 /// </summary>
 namespace Library
 {
-  public class Location
-  {
-    int x, y;
-    ShipPart part;
-    public int X { get { return x; } set { x = value; } } 
-    public int Y { get { return y; } set { y = value; } } 
-		public ShipPart Part { get; set; }
+	public class Location
+	{
+		int x, y;
+		ShipPart part;
+		public int X { get { return x; } set { x = value; } }
+		public int Y { get { return y; } set { y = value; } }
+		public ShipPart Part { get { return part; } set { part = value; } }
 		// bool hit=false;
-    public Location (int x, int y, ShipPart part){
-      this.x = x;
-      this.y = y;
-      this.part = part;
-    }
+		public Location(int x, int y, ShipPart part)
+		{
+			this.x = x;
+			this.y = y;
+			this.part = part;
+		}
 	}
 }

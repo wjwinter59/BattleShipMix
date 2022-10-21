@@ -24,7 +24,6 @@ namespace Library.src.Subject
 			this.name = name;
 			this.length = length;
 			this.sunk = false;
-
 			locations = new List<Location>(); // List of locations when placed on the grid. 
 		}
 		public void Show()

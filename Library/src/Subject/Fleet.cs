@@ -18,58 +18,50 @@ namespace Library.src.Subject
 												};
 		public Fleet()
 		{
-		battleShips = new List<BattleShip>();
-		
+			battleShips = new List<BattleShip>();
+
 			battleShips = dummy;
-						//Test gevalletje !
+			//Test gevalletje !
 			battleShips[3].Locations.Add(new Location(2, 2, ShipPart.Stearn));
 			battleShips[3].Locations.Add(new Location(3, 2, ShipPart.Midship));
 			battleShips[3].Locations.Add(new Location(4, 2, ShipPart.Bow));
-		
+
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
 			this.name = name;
 			this.battleShips = battleShips;
 		}
-		public void Show()
-		{
-			BattleShip vessel;
-			foreach (var ship in battleShips)
-			{
-				Console.Write($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
-				vessel = ship;
-				foreach (var part in vessel.Locations)
-					Console.Write($": {part.X},{part.Y}");
-				Console.WriteLine("");
-			}
-		}
-		public Boolean SetSail(List<BattleShip> fleet)
-		{
-			List<Location> los;   // List Occupied places
-			List<Location> las; // List available spaces
-			foreach (var ship in fleet)
-			{
-				los = FindOccupied(fleet);
-				Show(los);
-				las = GetEmptySpots(los, ship);
-			}
-			return true;
-		}
 		/// <summary>
-		/// Build list of locations retrieved from  all Battleships
+		/// Build list of locations retrieved from  all Battleships locations
+		/// in order to process them all in once
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
+		public Boolean SetSail(List<BattleShip> fleet)
+		{
+			List<Location> shipLocations;   // List Occupied places
+			List<Location> availableSpaces; // List available spaces
+			foreach (var ship in fleet)
+			{
+				shipLocations = FindOccupied(fleet);
+				Show(shipLocations);
+				availableSpaces = GetEmptySpots(shipLocations, ship);
+			}
+			return true;
+		}
 		List<Location> FindOccupied(List<BattleShip> fleet)
 		{
-			List<Location> tmpList = new();
+			List<Location> locationList = new();
+			List<Location> bufferList = new();
 			foreach (var ship in fleet)
-				tmpList.AddRange(ship.Locations);
-			// Create buffer around locations and return 
-			tmpList.AddRange(Buffer(tmpList));
-			return tmpList;
+				locationList.AddRange(ship.Locations);
+			// Create buffer around locationList and return 
+			bufferList = Buffer(locationList);
+			locationList.AddRange(bufferList);
+			return locationList;
 		}
+		
 		/// <summary>
 		/// create bufferlocations around locations that are occupied by shipparts.
 		/// Game rule states that ships are not allowed to touch each other.
@@ -78,44 +70,48 @@ namespace Library.src.Subject
 		/// <param name="location"></param>
 		List<Location> Buffer(List<Location> locations)
 		{
-			List<Location> tmpBuffer = new();
+			List<Location> newBuffer = new();
 			foreach (var loc in locations)
-			{
-				tmpBuffer.AddRange(SetBuffer(locations, loc));
-			}
-			locations.AddRange(tmpBuffer);
-			return locations;
+				SetBuffer(locations, newBuffer, loc);
+			Show(newBuffer);
+			return newBuffer;
 		}
 		/// <summary>
 		/// Create a buffer of 'bufValue' around a ships location, appart from alreaday occupied locations
+		/// 
+		/// Dit moet anders kunnen :)
 		/// </summary>
 		/// <param name="part"></param>
 		/// <param name="bufValue"></param>
 		/// <returns></returns>
-		List<Location> SetBuffer(List<Location> locations, Location loc)
+		List<Location> SetBuffer(List<Location> locations, List<Location> buffer,  Location loc)
 		{
-			List<Location> tmpBuffer = new();
+			//List<Location> tmpBuffer = new();
+			/// Gevonden kocaties waar een 'Overboard' wordt geplaatst kan niet direct in de bron worden opgenomen
+			/// deze is in gebruik door het FindOccupied method. 
+			/// deze wordt dan invalid.
+			if ((GetLocation(locations, loc.X - 1, loc.Y - 1) == null) & (GetLocation(buffer, loc.X - 1, loc.Y - 1) == null))
+				buffer.Add(new Location(loc.X - 1, loc.Y - 1, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X + 0, loc.Y - 1) == null) & (GetLocation(buffer, loc.X + 0, loc.Y - 1) == null))
+				buffer.Add(new Location(loc.X + 0, loc.Y - 1, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X + 1, loc.Y - 1) == null) & (GetLocation(buffer, loc.X + 1, loc.Y - 1) == null))
+				buffer.Add(new Location(loc.X + 1, loc.Y - 1, ShipPart.Overboard));
 
-			if (GetLocation(locations, loc.X - 1, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X - 1, loc.Y - 1, ShipPart.Overboard));
-			if (GetLocation(locations, loc.X + 0, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X + 0, loc.Y - 1, ShipPart.Overboard));
-			if (GetLocation(locations, loc.X + 1, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X + 1, loc.Y - 1, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X - 1, loc.Y) == null) & 
+					(GetLocation(buffer, loc.X - 1, loc.Y) == null))
+				buffer.Add(new Location(loc.X - 1, loc.Y, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X + 1, loc.Y) == null) & 
+					(GetLocation(buffer, loc.X + 1, loc.Y) == null))
+				buffer.Add(new Location(loc.X + 1, loc.Y, ShipPart.Overboard));
 
-			if (GetLocation(locations, loc.X - 1, loc.Y) == null)
-				tmpBuffer.Add(new Location(loc.X - 1, loc.Y, ShipPart.Overboard));
-			if (GetLocation(locations, loc.X + 1, loc.Y) == null)
-				tmpBuffer.Add(new Location(loc.X + 1, loc.Y, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X - 1, loc.Y + 1) == null) & (GetLocation(buffer, loc.X - 1, loc.Y + 1) == null))
+				buffer.Add(new Location(loc.X - 1, loc.Y + 1, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X + 0, loc.Y + 1) == null) & (GetLocation(buffer, loc.X + 0, loc.Y + 1) == null))
+				buffer.Add(new Location(loc.X + 0, loc.Y + 1, ShipPart.Overboard));
+			if ((GetLocation(locations, loc.X + 1, loc.Y + 1) == null) & (GetLocation(buffer, loc.X + 1, loc.Y + 1) == null))
+				buffer.Add(new Location(loc.X + 1, loc.Y + 1, ShipPart.Overboard));
 
-			if (GetLocation(locations, loc.X - 1, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X - 1, loc.Y - 1, ShipPart.Overboard));
-			if (GetLocation(locations, loc.X + 0, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X + 0, loc.Y - 1, ShipPart.Overboard));
-			if (GetLocation(locations, loc.X + 1, loc.Y - 1) == null)
-				tmpBuffer.Add(new Location(loc.X + 1, loc.Y - 1, ShipPart.Overboard));
-
-			return tmpBuffer;
+			return buffer;
 		}
 		Location GetLocation(List<Location> locations, Location location)
 		{
@@ -134,16 +130,24 @@ namespace Library.src.Subject
 		List<Location> GetEmptySpots(List<Location> locations, BattleShip ship)
 		{
 			List<Location> tmpEmpty = new();
-			// locations.Sort();
+			//locations.Sort();
 			return tmpEmpty;
 		}
+		public void Show(List<BattleShip> fleet)
+		{
+			foreach (BattleShip ship in fleet)
+			{
+				Console.Write($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
+				foreach (var part in ship.Locations)
+					Console.Write($"Locations : {part.X},{part.Y},{part.Part}");
+				Console.WriteLine("");
+			}
+		}
+
 		void Show(List<Location> locations)
 		{
 			foreach (var loc in locations)
-			{
-			if (loc != null)
-				Console.Write($"{loc.X}, {loc.Y}, {loc.Part}");
-			}
+					Console.WriteLine($"{loc.X}, {loc.Y}, {loc.Part}");
 			Console.WriteLine();
 		}
 	}
