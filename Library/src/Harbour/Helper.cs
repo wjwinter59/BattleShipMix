@@ -5,7 +5,10 @@ namespace Library.src.Harbour
 {
 	public enum Contestant { Human, Computer };
 	public enum GamePiece { Water, Splash, Ship, Bommed };
-	public enum ShipPart { Stearn, Midship, Bow, Buffer, Gone, Water, Nothing };
+	/// <summary>
+	/// ShipPart is Obolete,  replacing with BoardParts in Board.cs
+	/// </summary>
+	public enum ShipPart { Stearn, Midship, Bow, Buffer, Gone, Water, Nothing }; 
 	public struct BoardSize
 	{
 		public int x;
