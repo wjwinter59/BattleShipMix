@@ -54,8 +54,16 @@ namespace Library.src.Subject
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
-				//player.PrivateBoard.NavalFleet.Show();
 			}
+		}
+		public void ShowBoard(){
+			Console.WriteLine($"Player boards :");
+			foreach (var player in players)
+			{
+				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
+				player.PrivateBoard.Show();
+			}
+
 		}
 	}
 }

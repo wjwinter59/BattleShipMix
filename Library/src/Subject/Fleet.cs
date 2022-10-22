@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Library.src.Harbour;
 
 namespace Library.src.Subject
@@ -8,24 +10,30 @@ namespace Library.src.Subject
 	{
 		string name = "Default ships";
 		List<BattleShip> battleShips;
+		List<Location> boardSituation; // Useful for displaying the situation
 		public List<BattleShip> BattleShips { get => battleShips; set => battleShips = value; }
-		List<BattleShip> dummy = new List<BattleShip>{
-																new BattleShip("Carrier", 5),
-																new BattleShip("Battleship", 4),
-																new BattleShip("Destroyer", 3),
-																new BattleShip("Submarine", 3),
-																new BattleShip("Patrolboat", 2)
-												};
+		public List<Location> BoardSituation { get => boardSituation; }
+		public string Name { get => name; set => name = value; }
+
+    List<BattleShip> dummy = new List<BattleShip>{
+																																new BattleShip("Carrier", 5),
+																																new BattleShip("Battleship", 4),
+																																new BattleShip("Destroyer", 3),
+																																new BattleShip("Submarine", 3),
+																																new BattleShip("Patrolboat", 2)
+																								};
 		public Fleet()
 		{
+			boardSituation = new List<Location>();
 			battleShips = new List<BattleShip>();
 
 			battleShips = dummy;
 			//Test gevalletje !
-			battleShips[3].Locations.Add(new Location(2, 2, ShipPart.Stearn));
-			battleShips[3].Locations.Add(new Location(3, 2, ShipPart.Midship));
-			battleShips[3].Locations.Add(new Location(4, 2, ShipPart.Bow));
+			battleShips[3].Locations.Add(new Location(3, 3, ShipPart.Stearn));
+			battleShips[3].Locations.Add(new Location(4, 3, ShipPart.Midship));
+			battleShips[3].Locations.Add(new Location(5, 3, ShipPart.Bow));
 
+			battleShips[0].Locations.Add(new Location(0, 0, ShipPart.Bow));
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
@@ -33,35 +41,37 @@ namespace Library.src.Subject
 			this.battleShips = battleShips;
 		}
 		/// <summary>
-		/// Build list of locations retrieved from  all Battleships locations
-		/// in order to process them all in once
+		/// Build list of locations that are part of all Battleships, in order to process them in a uniform way
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
 		public Boolean SetSail(List<BattleShip> fleet)
 		{
-			List<Location> shipLocations;   // List Occupied places
+			List<Location> shipLocations = new();   // List Occupied places
 			List<Location> availableSpaces; // List available spaces
 			foreach (var ship in fleet)
 			{
-				shipLocations = FindOccupied(fleet);
-				Show(shipLocations);
-				availableSpaces = GetEmptySpots(shipLocations, ship);
+				shipLocations = FindOccupied(fleet);                    // should become an object of somesort
+				availableSpaces = GetEmptySpots(shipLocations, ship);   // should become an object 
 			}
+			boardSituation = shipLocations.OrderBy(o => o.X).ThenBy(o => o.Y).ToList();
 			return true;
 		}
+		/// <summary>
+		/// Create a complete list of locations that contain ship parts 
+		///		and a buffer around them.
+		/// </summary>
+		/// <param name="fleet"></param>
+		/// <returns></returns>
 		List<Location> FindOccupied(List<BattleShip> fleet)
 		{
 			List<Location> locationList = new();
-			List<Location> bufferList = new();
 			foreach (var ship in fleet)
 				locationList.AddRange(ship.Locations);
-			// Create buffer around locationList and return 
-			bufferList = Buffer(locationList);
-			locationList.AddRange(bufferList);
+
+			locationList.AddRange(Buffer(locationList));
 			return locationList;
 		}
-		
 		/// <summary>
 		/// create bufferlocations around locations that are occupied by shipparts.
 		/// Game rule states that ships are not allowed to touch each other.
@@ -73,7 +83,6 @@ namespace Library.src.Subject
 			List<Location> newBuffer = new();
 			foreach (var loc in locations)
 				SetBuffer(locations, newBuffer, loc);
-			Show(newBuffer);
 			return newBuffer;
 		}
 		/// <summary>
@@ -84,34 +93,33 @@ namespace Library.src.Subject
 		/// <param name="part"></param>
 		/// <param name="bufValue"></param>
 		/// <returns></returns>
-		List<Location> SetBuffer(List<Location> locations, List<Location> buffer,  Location loc)
+		List<Location> SetBuffer(List<Location> locations, List<Location> buffer, Location loc)
 		{
-			//List<Location> tmpBuffer = new();
 			/// Gevonden kocaties waar een 'Overboard' wordt geplaatst kan niet direct in de bron worden opgenomen
-			/// deze is in gebruik door het FindOccupied method. 
-			/// deze wordt dan invalid.
-			if ((GetLocation(locations, loc.X - 1, loc.Y - 1) == null) & (GetLocation(buffer, loc.X - 1, loc.Y - 1) == null))
-				buffer.Add(new Location(loc.X - 1, loc.Y - 1, ShipPart.Overboard));
-			if ((GetLocation(locations, loc.X + 0, loc.Y - 1) == null) & (GetLocation(buffer, loc.X + 0, loc.Y - 1) == null))
-				buffer.Add(new Location(loc.X + 0, loc.Y - 1, ShipPart.Overboard));
-			if ((GetLocation(locations, loc.X + 1, loc.Y - 1) == null) & (GetLocation(buffer, loc.X + 1, loc.Y - 1) == null))
-				buffer.Add(new Location(loc.X + 1, loc.Y - 1, ShipPart.Overboard));
-
-			if ((GetLocation(locations, loc.X - 1, loc.Y) == null) & 
-					(GetLocation(buffer, loc.X - 1, loc.Y) == null))
-				buffer.Add(new Location(loc.X - 1, loc.Y, ShipPart.Overboard));
-			if ((GetLocation(locations, loc.X + 1, loc.Y) == null) & 
-					(GetLocation(buffer, loc.X + 1, loc.Y) == null))
-				buffer.Add(new Location(loc.X + 1, loc.Y, ShipPart.Overboard));
-
-			if ((GetLocation(locations, loc.X - 1, loc.Y + 1) == null) & (GetLocation(buffer, loc.X - 1, loc.Y + 1) == null))
-				buffer.Add(new Location(loc.X - 1, loc.Y + 1, ShipPart.Overboard));
-			if ((GetLocation(locations, loc.X + 0, loc.Y + 1) == null) & (GetLocation(buffer, loc.X + 0, loc.Y + 1) == null))
-				buffer.Add(new Location(loc.X + 0, loc.Y + 1, ShipPart.Overboard));
-			if ((GetLocation(locations, loc.X + 1, loc.Y + 1) == null) & (GetLocation(buffer, loc.X + 1, loc.Y + 1) == null))
-				buffer.Add(new Location(loc.X + 1, loc.Y + 1, ShipPart.Overboard));
-
+			/// deze is in gebruik door het FindOccupied method. deze wordt dan invalid.
+			/// 
+			Location searchLoc = new Location();
+			
+			for (int i = -1; i < 2; i++)
+			{
+				for (int j = -1; j < 2; j++)
+				{
+					searchLoc.X = loc.X + i;
+					searchLoc.Y = loc.Y + j;
+					searchLoc.Part = ShipPart.Nothing; // vul alvast in als locatie straks wordt toegevoegd
+					if (EmptyLocation(locations, buffer, searchLoc))
+						buffer.Add(new Location(searchLoc));
+				}
+			}
 			return buffer;
+		}
+		Boolean EmptyLocation(List<Location> shipLocations, List<Location> buffer, Location location)
+		{
+			if ((shipLocations.Find(loc => (loc.X == location.X) & (loc.Y == location.Y)) == null) &
+								 (buffer.Find(loc => (loc.X == location.X) & (loc.Y == location.Y)) == null))
+				return true;
+
+			return false;
 		}
 		Location GetLocation(List<Location> locations, Location location)
 		{
@@ -130,10 +138,13 @@ namespace Library.src.Subject
 		List<Location> GetEmptySpots(List<Location> locations, BattleShip ship)
 		{
 			List<Location> tmpEmpty = new();
-			//locations.Sort();
 			return tmpEmpty;
 		}
-		public void Show(List<BattleShip> fleet)
+		/// <summary>
+		///     Some show methods for debugging purposus
+		/// </summary>
+		/// <param name="fleet"></param>
+		public void dbgShow(List<BattleShip> fleet)
 		{
 			foreach (BattleShip ship in fleet)
 			{
@@ -143,11 +154,10 @@ namespace Library.src.Subject
 				Console.WriteLine("");
 			}
 		}
-
-		void Show(List<Location> locations)
+		void dbgShow(List<Location> locations)
 		{
 			foreach (var loc in locations)
-					Console.WriteLine($"{loc.X}, {loc.Y}, {loc.Part}");
+				Console.WriteLine($"{loc.X}, {loc.Y}, {loc.Part}");
 			Console.WriteLine();
 		}
 	}
