@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
-using System.Xml.Linq;
-using Library.src;
-using Library.src.Harbour;
 using Library.src.Observer;
 
 namespace Library.src.Subject

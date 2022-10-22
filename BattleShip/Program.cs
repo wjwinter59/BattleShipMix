@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Library.src.Subject;
 using Library.src.Observer;
 using Library.src.Harbour;
-using System.Text;
 
 namespace BattleShipGame
 {

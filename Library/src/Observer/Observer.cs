@@ -46,9 +46,5 @@ namespace Library.src.Observer
 			Console.WriteLine($"Start player {name}'s Update type player {playerType}");
 			return false;
 		}
-		public void ShowFleet()
-		{
-			Console.WriteLine("Ëmpty fleet");
-		}
 	}
 }

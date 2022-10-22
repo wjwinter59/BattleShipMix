@@ -4,27 +4,13 @@ using System.Text;
 namespace Library.src.Harbour
 {
 	public enum Contestant { Human, Computer };
-	public enum GamePiece { Water, Splash, Ship, Bommed };
-	/// <summary>
-	/// ShipPart is Obolete,  replacing with BoardParts in Board.cs
-	/// </summary>
-	public enum ShipPart { Stearn, Midship, Bow, Buffer, Gone, Water, Nothing }; 
+	
 	public struct BoardSize
 	{
 		public int x;
 		public int y;
 	}
-	/// <summary>
-	/// Space holds information in order to determine where to place a ship on the grid.
-	/// all available spaces are listed and one ship.
-	/// </summary>
-	public struct Space
-	{
-		public int x;
-		public int y;
-		public int spaceLength;
-		public bool horizontal;
-	}
+	
 	/// <summary>
 	/// Uitzoeken hoe dit goed op te zetten via Unicodes
 	/// </summary>

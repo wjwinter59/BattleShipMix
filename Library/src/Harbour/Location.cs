@@ -12,30 +12,31 @@ using Library.src.Subject;
 /// </summary>
 namespace Library
 {
-    public class Location
+  public class Location
+  {
+    int x, y;
+    BoardPart part;
+    public int X { get { return x; } set { x = value; } }
+    public int Y { get { return y; } set { y = value; } }
+    public BoardPart Part { get { return part; } set { part = value; } }
+    // bool hit=false;
+    public Location()
     {
-        int x, y;
-        ShipPart part;
-        public int X { get { return x; } set { x = value; } }
-        public int Y { get { return y; } set { y = value; } }
-        public ShipPart Part { get { return part; } set { part = value; } }
-        // bool hit=false;
-        public Location()
-        {
-            x = 0;
-            y = 0;
-            part = ShipPart.Nothing;
-        }
-        public Location(Location loc){
-            this.x = loc.x;
-            this.y = loc.y;
-            this.part = loc.part;
-        }
-        public Location(int x, int y, ShipPart part)
-        {
-            this.x = x;
-            this.y = y;
-            this.part = part;
-        }
+      x = 0;
+      y = 0;
+      part = BoardPart.Buffer;
     }
+    public Location(Location loc)
+    {
+      this.x = loc.x;
+      this.y = loc.y;
+      this.part = loc.part;
+    }
+    public Location(int x, int y, BoardPart part)
+    {
+      this.x = x;
+      this.y = y;
+      this.part = part;
+    }
+  }
 }
