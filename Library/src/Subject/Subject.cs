@@ -42,7 +42,7 @@ namespace Library.src.Subject
 				if (player.Update(player.Name))
 					return true; //Checken op lost ??
 			}
-			return false;
+			return false; // EOG
 		}
 		public void ShowPlayers()
 		{
@@ -57,7 +57,7 @@ namespace Library.src.Subject
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
-				player.PrivateBoard.Show();
+				//player.PrivateBoard.dbgShow();
 			}
 
 		}

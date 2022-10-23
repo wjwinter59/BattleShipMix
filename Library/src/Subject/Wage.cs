@@ -17,8 +17,8 @@ namespace Library.src.Subject
 		}
 		public Wage(int xSize, int ySize)
 		{
-			gridSize.x = xSize;
-			gridSize.y = ySize;
+			gridSize.X = xSize;
+			gridSize.Y = ySize;
 		}
 		public bool PlayComputer(Wage battleField)
 		{// Doe een zet 

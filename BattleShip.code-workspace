@@ -19,6 +19,7 @@
 			"**/bin": true,
 			"**/obj": true,
 			"**/weg": true
-		}
+		},
+		"editor.insertSpaces": false
 	}
 }

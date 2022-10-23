@@ -16,12 +16,11 @@ namespace BattleShipGame
 			Battle.RegisterPlayer(new Observer("Willelm", Contestant.Human));
 
 			Battle.ShowPlayers();
-
 			Battle.NotifyPlayers();
 		}
 		static void Main(string[] args)
 		{
-			// Create a UTF-8 encoding.
+			// Create a UTF-8/16 encoding.
 			DoNewGame();
 		}
 	}
