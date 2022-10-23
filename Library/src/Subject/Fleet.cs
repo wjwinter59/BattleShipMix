@@ -28,7 +28,7 @@ namespace Library.src.Subject
 			battleShips = new List<BattleShip>();
 
 			battleShips = dummy;
-			//Test gevalletje !
+			//Test cases !
 			battleShips[3].Locations.Add(new Location(3, 3, BoardPart.Stearn));
 			battleShips[3].Locations.Add(new Location(4, 3, BoardPart.Midship));
 			battleShips[3].Locations.Add(new Location(5, 3, BoardPart.Bow));
