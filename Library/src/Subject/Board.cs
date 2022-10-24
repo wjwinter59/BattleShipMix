@@ -41,7 +41,7 @@ namespace Library.src.Subject
 			}
 			catch
 			{
-				Console.Write($"?\t");
+				Console.Write($"Shit\t");
 			}
 		}
 	}

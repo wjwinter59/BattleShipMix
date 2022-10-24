@@ -81,9 +81,11 @@ namespace Library.src.Subject
 		/// </summary>
 		/// <param name="locations"></param>
 		/// <returns></returns>
-		List<Space> FindEmptySpots(List<Location> buffers, int length)
+		List<Space> FindEmptySpots(List<Location> location, int length)
 		{
 			List<Space> spots = new List<Space>();
+
+			// for (int i = 0; i < location..; i++)	
 			List<Location> occupied = new List<Location>();
 			//Space tmpEmpty = new();
 			return spots;

@@ -11,9 +11,9 @@ namespace BattleShipGame
 		static void DoNewGame()
 		{
 			Subject Battle = new Subject();
-			Battle.RegisterPlayer(new Observer("Rene", Contestant.Human));
-			Battle.RegisterPlayer(new Observer("IbmMetje"));
-			Battle.RegisterPlayer(new Observer("Willelm", Contestant.Human));
+			Observer Player1 = new Observer(Battle, "Rene", Contestant.Human);
+			Observer Player2 = new Observer(Battle,"IbmMetje");
+			Observer Player3 = new Observer(Battle,"Willelm", Contestant.Human);
 
 			Battle.ShowPlayers();
 			Battle.NotifyPlayers();

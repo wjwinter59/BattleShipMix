@@ -26,19 +26,20 @@ namespace Library.src.Observer
 		public Board PrivateBoard { get { return privateBoard; } set { privateBoard = value; } }
 		public Contestant PlayerType { get { return playerType; } set { playerType = value; } }
 
-		public Observer(string name)
+		public Observer(ISubject subject, string name)
 		{
-			SetupObserver(name, Contestant.Computer);
+			SetupObserver(subject, name, Contestant.Computer);
 		}
-		public Observer(string name, Contestant playerType)
+		public Observer(ISubject subject, string name, Contestant playerType)
 		{
-			SetupObserver(name, playerType);
+			SetupObserver(subject, name, playerType);
 		}
-		void SetupObserver(string name, Contestant playerType)
+		void SetupObserver(ISubject subject, string name, Contestant playerType)
 		{
 			this.name = name;
 			this.playerType = playerType;
 			this.privateBoard = new Board();
+			subject.RegisterPlayer(this);
 		}
 		// Update is play move
 		public bool Update(string name)

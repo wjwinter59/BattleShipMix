@@ -21,12 +21,14 @@ namespace Library.src.Subject
 		public void RegisterPlayer(IObserver observer, string name)
 		{
 			observer.Name = name;
-			observer.PrivateBoard = new Board();
+			//observer.PrivateBoard = new Board();
 			players.Add(observer);
 		}
 
 		public void RegisterPlayer(IObserver observer)
 		{
+			observer.Name = "Computer...";
+//			observer.PrivateBoard = new Board();
 			players.Add(observer);
 		}
 		/// <summary>
