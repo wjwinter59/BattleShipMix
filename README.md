@@ -1,6 +1,6 @@
 # History :
   Started learning C# because I'm interested in Oop, so I needed some sort of project to work on. 
-    For some reason I stunbled on the boardgame Battleship and decided 'This is it !!' :).
+    For some reason I stumbled on a boardgame Battleship, and decided 'This is it !!' :).
   
  After a lot of reading, programming other things, coffee, strating over, reading about patterns, moments of frustration, seeing light's, talking with goeroes ....
     This is what I have done so far, mind you it's not finished yet :). 
