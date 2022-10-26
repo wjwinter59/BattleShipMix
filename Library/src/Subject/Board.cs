@@ -18,7 +18,7 @@ namespace Library.src.Subject
 			battleArea = new BoardSize(5, 6);
 			navalFleet = new Fleet();
 			navalFleet.SetSail(navalFleet.BattleShips);
-			dbgShow();
+			//dbgShow();
 		}
 		public void dbgShow() // Werkt wel
 		{

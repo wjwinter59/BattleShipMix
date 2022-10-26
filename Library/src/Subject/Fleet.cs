@@ -21,7 +21,8 @@ namespace Library.src.Subject
 				new BattleShip("Destroyer", 3),
 				new BattleShip("Submarine", 3),
 				new BattleShip("Patrolboat", 2)
-																								};
+		};
+
 		public Fleet()
 		{
 			boardSituation = new List<Location>();

@@ -52,7 +52,7 @@ namespace Library.src.Subject
 		/// <returns></returns>
 		List<Location> SetBuffer(List<Location> locations, List<Location> buffer, Location loc)
 		{
-			/// Gevonden kocaties waar een 'Overboard' wordt geplaatst kan niet direct in de bron worden opgenomen
+			/// Gevonden kocaties waar een 'buffer' wordt geplaatst kan niet direct in de bron worden opgenomen
 			/// deze is in gebruik door het FindOccupied method. deze wordt dan invalid.
 			/// 
 			Location searchLoc = new Location();

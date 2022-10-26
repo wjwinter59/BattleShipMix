@@ -11,16 +11,7 @@ namespace Library.src.Observer
 		string name;
 		Contestant playerType;
 		private Board privateBoard;
-
-		private Fleet privateFleet = new("Middeleeuwen",
-			new List<BattleShip> {
-					new BattleShip("Drager", 6),
-					new BattleShip("Vechter", 7),
-					new BattleShip("Kapotmaker", 3),
-					new BattleShip("Duiker", 6),
-					new BattleShip("Vlot", 1)
-		}
-	);
+		private Fleet privateFleet;
 		public string Name { get { return name; } set { name = value; } }
 		public Fleet PrivateFleet { get { return privateFleet; } set { privateFleet = value; } }
 		public Board PrivateBoard { get { return privateBoard; } set { privateBoard = value; } }
@@ -39,9 +30,10 @@ namespace Library.src.Observer
 			this.name = name;
 			this.playerType = playerType;
 			this.privateBoard = new Board();
+			// privateBoard.dbgShow();
 			subject.RegisterPlayer(this);
 		}
-		// Update is play move
+		// Update is play move ?
 		public bool Update(string name)
 		{
 			Console.WriteLine($"Start player {name}'s Update type player {playerType}");

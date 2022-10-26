@@ -14,21 +14,13 @@ namespace Library.src.Subject
 		{
 			board = new Board();
 		}
-		public Subject(Board board)
-		{
-			this.board = board;
-		}
 		public void RegisterPlayer(IObserver observer, string name)
 		{
 			observer.Name = name;
-			//observer.PrivateBoard = new Board();
 			players.Add(observer);
 		}
-
 		public void RegisterPlayer(IObserver observer)
 		{
-			observer.Name = "Computer...";
-//			observer.PrivateBoard = new Board();
 			players.Add(observer);
 		}
 		/// <summary>
@@ -52,16 +44,8 @@ namespace Library.src.Subject
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
+				player.PrivateBoard.dbgShow();
 			}
-		}
-		public void ShowBoard(){
-			Console.WriteLine($"Player boards :");
-			foreach (var player in players)
-			{
-				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
-				//player.PrivateBoard.dbgShow();
-			}
-
 		}
 	}
 }
