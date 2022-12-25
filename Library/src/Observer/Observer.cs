@@ -10,13 +10,15 @@ namespace Library.src.Observer
 	{
 		string name;
 		Contestant playerType;
-		private Board privateBoard;
-		private Fleet privateFleet;
-		public string Name { get { return name; } set { name = value; } }
-		public Fleet PrivateFleet { get { return privateFleet; } set { privateFleet = value; } }
-		public Board PrivateBoard { get { return privateBoard; } set { privateBoard = value; } }
-		public Contestant PlayerType { get { return playerType; } set { playerType = value; } }
+		private Board myBoard;
+		private Fleet myFleet;
 
+		#region Get- Setters
+		public string Name { get { return name; } set { name = value; } }
+		public Fleet MyFleet { get { return myFleet; } set { myFleet = value; } }
+		public Board MyBoard { get { return myBoard; } set { myBoard = value; } }
+		public Contestant PlayerType { get { return playerType; } set { playerType = value; } }
+		#endregion
 		public Observer(ISubject subject, string name)
 		{
 			SetupObserver(subject, name, Contestant.Computer);
@@ -29,14 +31,13 @@ namespace Library.src.Observer
 		{
 			this.name = name;
 			this.playerType = playerType;
-			this.privateBoard = new Board();
-			// privateBoard.dbgShow();
+			this.myBoard = new Board();
 			subject.RegisterPlayer(this);
 		}
-		// Update is play move ?
 		public bool Update(string name)
 		{
-			Console.WriteLine($"Start player {name}'s Update type player {playerType}");
+			Console.WriteLine($"{playerType} : Player's {name} move  :");
+			// Play a move
 			return false;
 		}
 	}

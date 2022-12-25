@@ -9,49 +9,64 @@ namespace Library.src.Subject
 	public class Fleet
 	{
 		string name = "Default ships";
+		static BoardSize arena = new BoardSize(6, 7);
+		Board ocean;
 		List<BattleShip> battleShips;
-		List<Location> boardSituation; // Useful for displaying the situation
+		List<Location> boardSituation; // Useful for displaying the situation, nee hoor moet hier weg
+		List<BattleShip> EnglishFleet = new List<BattleShip>{
+				new BattleShip(arena, "Carrier", 5),
+				new BattleShip(arena , "Battleship", 4),
+				new BattleShip(arena ,"Destroyer", 3),
+				new BattleShip(arena ,"Submarine", 3),
+				new BattleShip(arena ,"Patrolboat", 2)
+		};
+
+		#region GetSet ers
+		public BoardSize Arena { get { return arena; } }
 		public List<BattleShip> BattleShips { get => battleShips; set => battleShips = value; }
 		public List<Location> BoardSituation { get => boardSituation; }
 		public string Name { get => name; set => name = value; }
-
-		List<BattleShip> dummy = new List<BattleShip>{
-				new BattleShip("Carrier", 5),
-				new BattleShip("Battleship", 4),
-				new BattleShip("Destroyer", 3),
-				new BattleShip("Submarine", 3),
-				new BattleShip("Patrolboat", 2)
-		};
-
-		public Fleet()
+		#endregion
+		#region Constructors
+		public Fleet(Board ocean, List<BattleShip> BattleShips)
+		{
+			this.ocean = ocean;
+			this.battleShips = BattleShips;
+		}
+		public Fleet(BoardSize arena)
 		{
 			boardSituation = new List<Location>();
 			battleShips = new List<BattleShip>();
 
-			battleShips = dummy;
-			//Test cases !
-			battleShips[3].Locations.Add(new Location(3, 3, BoardPart.Stearn));
-			battleShips[3].Locations.Add(new Location(4, 3, BoardPart.Midship));
-			battleShips[3].Locations.Add(new Location(5, 3, BoardPart.Bow));
+			arena = arena;
+			this.name = "English ships";
+			battleShips = EnglishFleet;
 
-			battleShips[0].Locations.Add(new Location(0, 0, BoardPart.Bow));
+			//Test cases !Fill in some parts
+			battleShips[3].Locations.Add(new Location(0, 2, BoardPart.Stearn));
+			battleShips[3].Locations.Add(new Location(0, 3, BoardPart.Midship));
+			battleShips[3].Locations.Add(new Location(0, 4, BoardPart.Bow));
+			battleShips[1].Locations.Add(new Location(0, 1, BoardPart.Bow));
+			battleShips[1].Locations.Add(new Location(1, 1, BoardPart.Midship));
+			battleShips[1].Locations.Add(new Location(2, 1, BoardPart.Bow));
+			// dbgShow(EnglishFleet);
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
 			this.name = name;
 			this.battleShips = battleShips;
 		}
+		#endregion
 		/// <summary>
 		/// Build list of locations that are part of all Battleships, in order to process them in a uniform way
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
-
-		public Boolean SetSail(List<BattleShip> fleet)
+		public List<Location> SetSail(BoardSize arena, List<BattleShip> armada)
 		{
-			Buffer shipsBuffers = new Buffer(fleet);
+			Buffer shipsBuffers = new Buffer(arena, armada);
 			boardSituation = shipsBuffers.BoardSituation;
-			return true;
+			return boardSituation;
 		}
 		/// <summary>
 		/// Create a complete list of locations that contain ship parts 
@@ -66,6 +81,7 @@ namespace Library.src.Subject
 				locationList.AddRange(ship.Locations);
 
 			locationList.AddRange(Buffer(locationList));
+			//dbgShow(locationList);
 			return locationList;
 		}
 		/// <summary>
@@ -95,7 +111,7 @@ namespace Library.src.Subject
 			/// deze is in gebruik door het FindOccupied method. deze wordt dan invalid.
 			/// 
 			Location searchLoc = new Location();
-
+			LocationList<Location> list = new LocationList<Location>();
 			for (int i = -1; i < 2; i++)
 			{
 				for (int j = -1; j < 2; j++)
@@ -104,7 +120,10 @@ namespace Library.src.Subject
 					searchLoc.Y = loc.Y + j;
 					searchLoc.Part = BoardPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
 					if (EmptyLocation(locations, buffer, searchLoc))
+					{
 						buffer.Add(new Location(searchLoc));
+						list.Add(new Location(searchLoc));
+					}
 				}
 			}
 			return buffer;

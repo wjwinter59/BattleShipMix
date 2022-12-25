@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.src.Harbour;
 using Library.src.Observer;
 
 namespace Library.src.Subject
@@ -8,12 +9,16 @@ namespace Library.src.Subject
  /// </summary>
 	public class Subject : ISubject
 	{
-		List<IObserver> players=new List<IObserver>();
+		#region Private spul
+		List<IObserver> players = new List<IObserver>();
 		private Board board;
 		public Subject()
 		{
 			board = new Board();
 		}
+		public BoardSize BattleSize { get {return board.BattleArea; } }
+		#endregion
+		#region Methods spul
 		public void RegisterPlayer(IObserver observer, string name)
 		{
 			observer.Name = name;
@@ -27,9 +32,8 @@ namespace Library.src.Subject
 		/// Nog helemaal uitwerken 
 		/// </summary>
 		/// <returns></returns>
-		public bool NotifyPlayers()
+		public bool Notify()
 		{
-			Console.WriteLine($"Notifying players");
 			foreach (var player in players)
 			{
 				Console.WriteLine($"Notifying PLayer : {player.Name} ");
@@ -38,13 +42,14 @@ namespace Library.src.Subject
 			}
 			return false; // EOG
 		}
+		#endregion
 		public void ShowPlayers()
 		{
 			Console.WriteLine($"Player list :");
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t :{player.Name}, is  {player.PlayerType} ");
-				player.PrivateBoard.dbgShow();
+				// player.MyBoard.dbgShow(player.MyBoard);
 			}
 		}
 	}

@@ -20,6 +20,7 @@
 			"**/obj": true,
 			"**/weg": true
 		},
-		"editor.insertSpaces": false
+		"editor.insertSpaces": false,
+		"workbench.editor.highlightModifiedTabs": true
 	}
 }
