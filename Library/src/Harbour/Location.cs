@@ -13,19 +13,25 @@ using System;
 /// </summary>
 namespace Library.src.Harbour
 {
+	//public enum ShipPart { Stearn, Midship, Bow, Buffer, Gone, Water, Nothing };
+	public enum ShipPart { Stearn, Midship, Bow, Gone, Nothing };
+
 	public class Location
 	{
 		int x, y;
-		BoardPart part;
+		BufferPart bufferPart;
+		ShipPart shipPart;
+
 		public int X { get { return x; } set { x = value; } }
 		public int Y { get { return y; } set { y = value; } }
-		public BoardPart Part { get { return part; } set { part = value; } }
+		public ShipPart ShipPart { get { return shipPart; } set { shipPart = value; } }
+		public BufferPart BufferPart { get { return bufferPart; } set { bufferPart = value; } }
 		#region Constructor
 		public Location()
 		{
 			x = -1;
 			y = -1;
-			part = BoardPart.Nothing;
+			shipPart = ShipPart.Nothing;
 			//-1,-1 ipv 0.0, 0,0 initialiseren zou een geldige coordinaat opleveren 
 			//  kan niet voor een leeg bord.
 		}
@@ -33,13 +39,13 @@ namespace Library.src.Harbour
 		{
 			this.x = loc.x;
 			this.y = loc.y;
-			this.part = loc.part;
+			this.shipPart = loc.shipPart;
 		}
-		public Location(int x, int y, BoardPart part)
+		public Location(int x, int y, ShipPart shipPart)
 		{
 			this.x = x;
 			this.y = y;
-			this.part = part;
+			this.shipPart = shipPart;
 		}
 		#endregion
 		#region Overloading 

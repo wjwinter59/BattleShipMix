@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 using Library.src.Harbour;
 
@@ -9,47 +10,60 @@ namespace Library.src.Subject
 	public class Fleet
 	{
 		string name = "Default ships";
-		static BoardSize arena = new BoardSize(6, 7);
-		Board ocean;
-		List<BattleShip> battleShips;
+		//		static BoardSize arena = new BoardSize(6, 7);
+		//Board ocean;
+		List<BattleShip> battleShips = new List<BattleShip>();
 		List<Location> boardSituation; // Useful for displaying the situation, nee hoor moet hier weg
 		List<BattleShip> EnglishFleet = new List<BattleShip>{
-				new BattleShip(arena, "Carrier", 5),
-				new BattleShip(arena , "Battleship", 4),
-				new BattleShip(arena ,"Destroyer", 3),
-				new BattleShip(arena ,"Submarine", 3),
-				new BattleShip(arena ,"Patrolboat", 2)
+				new BattleShip("Carrier", 5),
+				new BattleShip("Battleship", 4),
+				new BattleShip("Destroyer", 3),
+				new BattleShip("Submarine", 3),
+				new BattleShip("Patrolboat", 2)
 		};
 
 		#region GetSet ers
-		public BoardSize Arena { get { return arena; } }
+		//public BoardSize Arena { get { return arena; } }
 		public List<BattleShip> BattleShips { get => battleShips; set => battleShips = value; }
 		public List<Location> BoardSituation { get => boardSituation; }
 		public string Name { get => name; set => name = value; }
 		#endregion
 		#region Constructors
+		public Fleet()
+		{
+			this.battleShips = EnglishFleet;
+			//Test cases !Fill in some parts
+			battleShips[3].Locations.Add(new Location(0, 2, ShipPart.Stearn));
+			battleShips[3].Locations.Add(new Location(0, 3, ShipPart.Midship));
+			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Midship));
+			battleShips[3].Locations.Add(new Location(0, 5, ShipPart.Bow));
+			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
+			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
+			battleShips[1].Locations.Add(new Location(2, 1, ShipPart.Bow));
+		}
 		public Fleet(Board ocean, List<BattleShip> BattleShips)
 		{
-			this.ocean = ocean;
+			//this.ocean = ocean;
 			this.battleShips = BattleShips;
 		}
 		public Fleet(BoardSize arena)
 		{
-			boardSituation = new List<Location>();
+			//boardSituation = new List<Location>();
 			battleShips = new List<BattleShip>();
 
-			arena = arena;
+			//ocean = arena;
 			this.name = "English ships";
 			battleShips = EnglishFleet;
 
 			//Test cases !Fill in some parts
-			battleShips[3].Locations.Add(new Location(0, 2, BoardPart.Stearn));
-			battleShips[3].Locations.Add(new Location(0, 3, BoardPart.Midship));
-			battleShips[3].Locations.Add(new Location(0, 4, BoardPart.Bow));
-			battleShips[1].Locations.Add(new Location(0, 1, BoardPart.Bow));
-			battleShips[1].Locations.Add(new Location(1, 1, BoardPart.Midship));
-			battleShips[1].Locations.Add(new Location(2, 1, BoardPart.Bow));
-			// dbgShow(EnglishFleet);
+			battleShips[3].Locations.Add(new Location(0, 2, ShipPart.Stearn));
+			battleShips[3].Locations.Add(new Location(0, 3, ShipPart.Midship));
+			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Bow));
+			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
+			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
+			battleShips[1].Locations.Add(new Location(2, 1, ShipPart.Bow));
+			string jsonBattlaships = JsonSerializer.Serialize(battleShips);
+
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
@@ -118,7 +132,7 @@ namespace Library.src.Subject
 				{
 					searchLoc.X = loc.X + i;
 					searchLoc.Y = loc.Y + j;
-					searchLoc.Part = BoardPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
+					searchLoc.BufferPart = BufferPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
 					if (EmptyLocation(locations, buffer, searchLoc))
 					{
 						buffer.Add(new Location(searchLoc));
@@ -133,7 +147,6 @@ namespace Library.src.Subject
 			if ((shipLocations.Find(loc => (loc.X == location.X) & (loc.Y == location.Y)) == null) &
 								 (buffer.Find(loc => (loc.X == location.X) & (loc.Y == location.Y)) == null))
 				return true;
-
 			return false;
 		}
 		Location GetLocation(List<Location> locations, Location location)
@@ -145,24 +158,22 @@ namespace Library.src.Subject
 		{
 			return locations.Find(loc => (loc.X == x) & (loc.Y == y));
 		}
-		/// <summary>
-		///     Some show methods for debugging purposus
-		/// </summary>
-		/// <param name="fleet"></param>
+		public void dbgShow()
+		{
+			dbgShow(BattleShips);
+		}
 		public void dbgShow(List<BattleShip> fleet)
 		{
 			foreach (BattleShip ship in fleet)
 			{
-				Console.Write($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
-				foreach (var part in ship.Locations)
-					Console.Write($"Locations : {part.X},{part.Y},{part.Part}");
-				Console.WriteLine("");
+				Console.WriteLine($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
+				dbgShow(ship.Locations);
 			}
 		}
 		void dbgShow(List<Location> locations)
 		{
 			foreach (var loc in locations)
-				Console.WriteLine($"{loc.X}, {loc.Y}, {loc.Part}");
+				Console.WriteLine($"{loc.X}, {loc.Y}, {loc.ShipPart}");
 			Console.WriteLine();
 		}
 	}

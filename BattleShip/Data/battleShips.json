@@ -1,0 +1,53 @@
+[{
+      "Name": "Carrier",
+      "Length": 5,
+      "Sunk": false,
+      "Locations": []
+   }, {
+      "Name": "Battleship",
+      "Length": 4,
+      "Sunk": false,
+      "Locations": [{
+            "X": 0,
+            "Y": 1,
+            "Part": 2
+         }, {
+            "X": 1,
+            "Y": 1,
+            "Part": 1
+         }, {
+            "X": 2,
+            "Y": 1,
+            "Part": 2
+         }
+      ]
+   }, {
+      "Name": "Destroyer",
+      "Length": 3,
+      "Sunk": false,
+      "Locations": []
+   }, {
+      "Name": "Submarine",
+      "Length": 3,
+      "Sunk": false,
+      "Locations": [{
+            "X": 0,
+            "Y": 2,
+            "Part": 0
+         }, {
+            "X": 0,
+            "Y": 3,
+            "Part": 1
+         }, {
+            "X": 0,
+            "Y": 4,
+            "Part": 2
+         }
+      ]
+   }, {
+      "Name": "Patrolboat",
+      "Length": 2,
+      "Sunk": false,
+      "Locations": []
+   }
+]

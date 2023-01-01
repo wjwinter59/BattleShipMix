@@ -7,6 +7,8 @@ using Library.src.Harbour;
 
 namespace Library.src.Subject
 {
+	public enum BufferPart { Buffer, Water, Nothing };
+
 	public class Buffer
 	{
 		List<Location> boardSituation = new List<Location>();
@@ -51,7 +53,7 @@ namespace Library.src.Subject
 		/// <param name="part"></param>
 		/// <param name="bufValue"></param>
 		/// <returns></returns>
-		List<Location> SetBuffer(List<Location> locations, List<Location> buffer, Location loc)
+		List<Location> SetBuffer(List<Location> shipLocations, List<Location> buffer, Location loc)
 		{
 			/// Gevonden kocaties waar een 'buffer' wordt geplaatst kan niet direct in de bron worden opgenomen
 			/// deze is in gebruik door het FindOccupied method. deze wordt dan invalid.
@@ -64,8 +66,8 @@ namespace Library.src.Subject
 				{
 					searchLoc.X = loc.X + i;
 					searchLoc.Y = loc.Y + j;
-					searchLoc.Part = BoardPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
-					if (EmptyLocation(locations, buffer, searchLoc))
+					searchLoc.BufferPart = BufferPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
+					if (EmptyLocation(shipLocations, buffer, searchLoc))
 					{
 						buffer.Add(new Location(searchLoc));
 						// buffer2.Add(new Location(searchLoc));

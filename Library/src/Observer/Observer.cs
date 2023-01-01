@@ -10,8 +10,8 @@ namespace Library.src.Observer
 	{
 		string name;
 		Contestant playerType;
-		private Board myBoard;
-		private Fleet myFleet;
+		private Board myBoard; // Holds board given by the Subject class
+		private Fleet myFleet; // Holds fleet given by the Subject class
 
 		#region Get- Setters
 		public string Name { get { return name; } set { name = value; } }
@@ -31,14 +31,45 @@ namespace Library.src.Observer
 		{
 			this.name = name;
 			this.playerType = playerType;
-			this.myBoard = new Board();
-			subject.RegisterPlayer(this);
+
+			subject.RegisterPlayer(this); // register board and fleet from within Subject class
 		}
 		public bool Update(string name)
 		{
 			Console.WriteLine($"{playerType} : Player's {name} move  :");
-			// Play a move
+			// Play a move ?? but when
 			return false;
+		}
+		public Boolean DoMove()
+		{
+			return true;
+		}
+		// Nieuw nog uitwerken
+		//public void dbgShow(BoardSize size, List<Location> locationList) // Werkt wel
+		public void dbgShow() // 
+		{
+			Location location;
+			Console.WriteLine($"Board ship locations.");
+			try
+			{
+				for (int j = 0; j < MyBoard.Size.Y; j++)
+				{
+					for (int i = 0; i < MyBoard.Size.X; i++)
+					{
+						location = MyBoard.FleetLocations.Find(loc => (loc.X == i) & (loc.Y == j));
+						if (location != null)
+							//Console.Write($"{location.X},{location.Y}\t");
+							Console.Write($"{location.ShipPart}\t");
+						else
+							Console.Write($"?\t");
+					}
+					Console.WriteLine();
+				}
+			}
+			catch
+			{
+				Console.Write($"Shit\t");
+			}
 		}
 	}
 }

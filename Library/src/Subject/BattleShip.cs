@@ -33,6 +33,7 @@ namespace Library.src.Subject
 			this.name = name;
 			this.length = length;
 			this.sunk = false;
+			locations = new();
 		}
 		public BattleShip(BoardSize boardSize,  string name, int length)
 		{
