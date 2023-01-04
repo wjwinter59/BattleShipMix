@@ -19,11 +19,15 @@ namespace Library.src.Harbour
 	public class Location
 	{
 		int x, y;
+		int xLen = 0;
+		int yLen = 0;
 		BufferPart bufferPart;
 		ShipPart shipPart;
 
 		public int X { get { return x; } set { x = value; } }
 		public int Y { get { return y; } set { y = value; } }
+		public int XLen { get { return xLen; } set { xLen = value; } }	
+		public int YLen	{ get { return yLen; } set { yLen = value; } }
 		public ShipPart ShipPart { get { return shipPart; } set { shipPart = value; } }
 		public BufferPart BufferPart { get { return bufferPart; } set { bufferPart = value; } }
 		#region Constructor
@@ -51,10 +55,10 @@ namespace Library.src.Harbour
 		#region Overloading 
 		public static Location operator -(Location a, Location b)
 		{
-			Location len = new Location(); 
-			len.X = a.X - b.X;
-			len.Y = a.Y - b.Y;
-			return len;
+			Location tmp = new Location(); 
+			tmp.XLen = b.X - a.X;
+			tmp.YLen = b.Y - a.Y;
+			return tmp;
 		}
 		public static Boolean operator <(Location a, Location b)
 		{

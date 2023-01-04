@@ -16,7 +16,7 @@ namespace Library.src.Subject
 		BoardSize ocean;
 		FreeSpace roomLocation = new FreeSpace();
 		#region Get Set
-		public List<Location> BoardSituation { get { return boardSituation; } }
+		public List<Location> Locations { get { return boardSituation; } }
 		#endregion
 		#region Buffering
 		public Buffer(BoardSize ocean, List<BattleShip> battleShips)
@@ -42,10 +42,10 @@ namespace Library.src.Subject
 		/// <param name="location"></param>
 		List<Location> GetBuffer(List<Location> locations)
 		{
-			List<Location> newBuffer = new();
+			List<Location> buffer = new();
 			foreach (var loc in locations)
-				SetBuffer(locations, newBuffer, loc);
-			return newBuffer;
+				SetBuffer(locations, buffer, loc);
+			return buffer;
 		}
 		/// <summary>
 		/// Create a list of 'buffer'parts around a ships location, appart from alreaday occupied locations

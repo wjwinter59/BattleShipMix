@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 using Library.src.Harbour;
@@ -10,10 +9,12 @@ namespace Library.src.Subject
 	public class Fleet
 	{
 		string name = "Default ships";
-		//		static BoardSize arena = new BoardSize(6, 7);
-		//Board ocean;
+
 		List<BattleShip> battleShips = new List<BattleShip>();
-		List<Location> boardSituation; // Useful for displaying the situation, nee hoor moet hier weg
+		List<Location> shipLocations; // Useful for calculations, the extent of the fleet for exmpl
+		List<Location> bufferLocations;
+		private Extent fleetExtent;
+
 		List<BattleShip> EnglishFleet = new List<BattleShip>{
 				new BattleShip("Carrier", 5),
 				new BattleShip("Battleship", 4),
@@ -23,10 +24,10 @@ namespace Library.src.Subject
 		};
 
 		#region GetSet ers
-		//public BoardSize Arena { get { return arena; } }
 		public List<BattleShip> BattleShips { get => battleShips; set => battleShips = value; }
-		public List<Location> BoardSituation { get => boardSituation; }
+		public List<Location> ShipLocations { get => shipLocations; }
 		public string Name { get => name; set => name = value; }
+		public Extent FleetExtent { get => fleetExtent; set => fleetExtent = value; }
 		#endregion
 		#region Constructors
 		public Fleet()
@@ -40,47 +41,58 @@ namespace Library.src.Subject
 			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
 			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
 			battleShips[1].Locations.Add(new Location(2, 1, ShipPart.Bow));
+			shipLocations = GetShipLocations();
+			fleetExtent = new(shipLocations);
 		}
-		public Fleet(Board ocean, List<BattleShip> BattleShips)
+		public Fleet(Fleet fleet)
 		{
-			//this.ocean = ocean;
-			this.battleShips = BattleShips;
-		}
-		public Fleet(BoardSize arena)
-		{
-			//boardSituation = new List<Location>();
-			battleShips = new List<BattleShip>();
+			this.name = fleet.name;
+			battleShips = fleet.battleShips;
 
-			//ocean = arena;
+			// Test case
 			this.name = "English ships";
 			battleShips = EnglishFleet;
 
-			//Test cases !Fill in some parts
-			battleShips[3].Locations.Add(new Location(0, 2, ShipPart.Stearn));
-			battleShips[3].Locations.Add(new Location(0, 3, ShipPart.Midship));
-			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Bow));
 			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
 			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
 			battleShips[1].Locations.Add(new Location(2, 1, ShipPart.Bow));
-			string jsonBattlaships = JsonSerializer.Serialize(battleShips);
+			battleShips[3].Locations.Add(new Location(0, 2, ShipPart.Stearn));
+			battleShips[3].Locations.Add(new Location(0, 3, ShipPart.Midship));
+			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Bow));
 
+			string jsonBattlaships = JsonSerializer.Serialize(battleShips); // Test thingy
+			shipLocations = GetShipLocations();
+			fleetExtent = new(shipLocations);
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
 			this.name = name;
 			this.battleShips = battleShips;
+			shipLocations = GetShipLocations();
+			fleetExtent = new(shipLocations);
 		}
 		#endregion
 		/// <summary>
-		/// Build list of locations that are part of all Battleships, in order to process them in a uniform way
+		/// Build list of locations that are part of all Battleships, 
+		/// in order to process them in a uniform way
+		/// 
+		public List<Location> GetShipLocations()
+		{
+			List<Location> locationList = new();
+			foreach (var ship in this.BattleShips)
+				locationList.AddRange(ship.Locations);
+			return locationList;
+		}
+		/// create buffers arround the schips to build a list of occupied locations (boardSituation)
+		/// This can be used to pllace the ships in the constructor of a new observer.
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
-		public List<Location> SetSail(BoardSize arena, List<BattleShip> armada)
+		public List<Location> BufferShips(BoardSize ocean, List<BattleShip> fleet)
 		{
-			Buffer shipsBuffers = new Buffer(arena, armada);
-			boardSituation = shipsBuffers.BoardSituation;
-			return boardSituation;
+			Buffer Buffers = new Buffer(ocean, fleet);
+			bufferLocations = Buffers.Locations;
+			return bufferLocations;
 		}
 		/// <summary>
 		/// Create a complete list of locations that contain ship parts 
@@ -88,14 +100,12 @@ namespace Library.src.Subject
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
-		List<Location> FindOccupied(List<BattleShip> fleet)
+		List<Location> FindOccupied(Fleet fleet)
 		{
-			List<Location> locationList = new();
-			foreach (var ship in fleet)
-				locationList.AddRange(ship.Locations);
-
-			locationList.AddRange(Buffer(locationList));
-			//dbgShow(locationList);
+			// Hier stond het genereren van een lijst shiplocations
+			// is nu : GetShipLocations()
+			List<Location> locationList = new List<Location>();
+			locationList.AddRange(Buffer(GetShipLocations()));
 			return locationList;
 		}
 		/// <summary>

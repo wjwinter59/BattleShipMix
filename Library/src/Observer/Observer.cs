@@ -37,7 +37,6 @@ namespace Library.src.Observer
 		public bool Update(string name)
 		{
 			Console.WriteLine($"{playerType} : Player's {name} move  :");
-			// Play a move ?? but when
 			return false;
 		}
 		public Boolean DoMove()
@@ -56,7 +55,7 @@ namespace Library.src.Observer
 				{
 					for (int i = 0; i < MyBoard.Size.X; i++)
 					{
-						location = MyBoard.FleetLocations.Find(loc => (loc.X == i) & (loc.Y == j));
+						location = MyBoard.ShipLocations.Find(loc => (loc.X == i) & (loc.Y == j));
 						if (location != null)
 							//Console.Write($"{location.X},{location.Y}\t");
 							Console.Write($"{location.ShipPart}\t");

@@ -11,7 +11,6 @@ namespace Library.src.Subject
 		List<IObserver> players = new List<IObserver>();
 		private Board board;
 		private Fleet fleet;
-
 		public Subject()
 		{
 			board = new Board(6, 7); // overrule default 10x10 size
@@ -34,9 +33,9 @@ namespace Library.src.Subject
 		{
 			//putfleetOnBoard(board.Size, fleet.BattleShips); //Put the fleet on the board
 			observer.Name = name;
-			observer.MyBoard = board;
 			observer.MyFleet = fleet;
-			observer.MyBoard.FleetLocations = GetShipLocations(fleet);
+			observer.MyBoard = board;
+			observer.MyBoard.ShipLocations = fleet.GetShipLocations();
 			players.Add(observer);
 		}
 		/// <summary>
@@ -55,18 +54,11 @@ namespace Library.src.Subject
 			return false; // EOG
 		}
 		#endregion
-		List<Location> GetShipLocations(Fleet fleet)
-		{
-			List<Location> tmpLocations = new List<Location>();
-			foreach (var ship in fleet.BattleShips)
-				tmpLocations.AddRange(ship.Locations);
-			return tmpLocations;
-		}
 		// First attempt
 		public void putfleetOnBoard(Board board, Fleet fleet) //List<BattleShip> ships
 		{
 			Buffer shipsBuffers = new Buffer(board.Size, fleet.BattleShips);
-			board.FleetLocations = shipsBuffers.BoardSituation;
+			board.ShipLocations = shipsBuffers.Locations;
 			//return boardSituation;
 		}
 		public void Show()
@@ -80,7 +72,7 @@ namespace Library.src.Subject
 			foreach (var player in players)
 			{
 				Console.WriteLine($"\t Player :{player.Name}, is a {player.PlayerType} ");
-				Console.WriteLine($"Players fleet : {player.MyFleet.Name} with player.MyFleet.Arena of room");
+				Console.WriteLine($"Players fleet : {player.MyFleet.Name} with {player.MyFleet.FleetExtent} of room");
 				player.MyFleet.dbgShow();
 			}
 		}

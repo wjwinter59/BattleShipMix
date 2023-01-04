@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Authentication.ExtendedProtection;
 using System.Xml;
 using Library.src.Harbour;
 
@@ -9,41 +10,34 @@ namespace Library.src.Subject
 	public class BattleShip
 	{
 		List<Location> locations;
-		int length = 0;
+		Extent extent;
 		string name = "Boem"; //what's in a name
+		int length = 0;
 		bool sunk = false;
 		Location minLoc;
 		Location maxLoc;
-		BoardSize boardSize;
+		#region
 		public string Name { get => name; }
 		public int Length { get => length; }
 		public bool Sunk { get => sunk; }
-		//Oplossen met iterator
 		public List<Location> Locations
 		{
 			get => locations;
 			//set => location = value; 
 		}
+		#endregion
+		public BattleShip(string name, int length)
+		{
+			this.name = name;
+			this.length = length;
+			this.sunk = false;
+			locations = new List<Location>(); // List of locations when placed on the grid. 
+		}
+
 		public void AddLocation(Location spot)
 		{
-			if ((spot > minLoc) && (spot < maxLoc))
-				locations.Add(spot);
-		}
-		public BattleShip(string name, int length) {
-			this.name = name;
-			this.length = length;
-			this.sunk = false;
-			locations = new();
-		}
-		public BattleShip(BoardSize boardSize,  string name, int length)
-		{
-			this.name = name;
-			this.length = length;
-			this.sunk = false;
-			this.boardSize=boardSize;
-			this.minLoc = new Location() { X = -1, Y = -1 };
-			this.maxLoc = new Location() { X = boardSize.X, Y = boardSize.Y };
-			locations = new List<Location>(); // List of locations when placed on the grid. 
+			if ((spot > minLoc) && (spot < maxLoc)) // Uitwerken op extents vergelijking ?
+				extent.AddExtent(spot);
 		}
 		public void Show()
 		{

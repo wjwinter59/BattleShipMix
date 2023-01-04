@@ -1,4 +1,5 @@
-﻿using System;
+﻿// https://stackabuse.com/git-merge-branch-into-master/
+using System;
 
 using Library.src.Subject;
 using Library.src.Observer;
@@ -19,11 +20,11 @@ namespace BattleShipGame
 			Observer Player2 = new Observer(Battle, "IbmMetje");
 			Player2.MyFleet = new("Middeleeuwen",
 					new List<BattleShip> {
-						new BattleShip(Battle.BattleSize, "Drager", 6),
-						new BattleShip(Battle.BattleSize, "Vechter", 7),
-						new BattleShip(Battle.BattleSize, "Kapotmaker", 3),
-						new BattleShip(Battle.BattleSize, "Duiker", 6),
-						new BattleShip(Battle.BattleSize, "Vlot", 1)
+						new BattleShip( "Drager", 6),
+						new BattleShip( "Vechter", 7),
+						new BattleShip( "Kapotmaker", 3),
+						new BattleShip( "Duiker", 6),
+						new BattleShip( "Vlot", 1)
 				}
 			);
 
@@ -41,11 +42,11 @@ namespace BattleShipGame
 			//Use another fleet
 			Player2.MyFleet = new("Middeleeuwen",
 					new List<BattleShip> {
-						new BattleShip(Game.BattleSize, "Drager", 6),
-						new BattleShip(Game.BattleSize, "Vechter", 7),
-						new BattleShip(Game.BattleSize, "Kapotmaker", 3),
-						new BattleShip(Game.BattleSize, "Duiker", 6),
-						new BattleShip(Game.BattleSize, "Vlot", 1)
+						new BattleShip("Drager", 6),
+						new BattleShip("Vechter", 7),
+						new BattleShip("Kapotmaker", 3),
+						new BattleShip("Duiker", 6),
+						new BattleShip("Vlot", 1)
 					}
 				);
 			Game.ShowPlayers();
