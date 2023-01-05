@@ -32,6 +32,7 @@ namespace Library.src.Subject
 			this.length = length;
 			this.sunk = false;
 			locations = new List<Location>(); // List of locations when placed on the grid. 
+			extent = new(locations);
 		}
 
 		public void AddLocation(Location spot)
@@ -41,6 +42,8 @@ namespace Library.src.Subject
 		}
 		public void Show()
 		{
+			Console.Write("Extent ship :");
+			extent.Show();
 			Console.WriteLine($"Name: {Name}");
 			Console.Write($"Locations : ");
 			foreach (var location in Locations)
