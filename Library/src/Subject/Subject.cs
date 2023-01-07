@@ -7,16 +7,19 @@ namespace Library.src.Subject
 {
 	public class Subject : ISubject
 	{
-		#region Private spul
+		#region Private spul getters and contruct
 		List<IObserver> players = new List<IObserver>();
-		private Board board;
-		private Fleet fleet;
+		private Board defaultBoard;
+		private Fleet defaultFleet;
+
+		public Board DefaultBoard { get => defaultBoard; }
+		public Fleet DefaultFleet { get => defaultFleet; }
+
 		public Subject()
 		{
-			board = new Board(6, 7); // overrule default 10x10 size
-			fleet = new Fleet();
+			defaultBoard = new Board(6, 7); // overrule default 10x10 size
+			defaultFleet = new Fleet();
 		}
-		public BoardSize BattleSize { get { return board.Size; } }
 		#endregion
 
 		#region Methods spul
@@ -33,9 +36,9 @@ namespace Library.src.Subject
 		{
 			//putfleetOnBoard(board.Size, fleet.BattleShips); //Put the fleet on the board
 			observer.Name = name;
-			observer.MyFleet = fleet;
-			observer.MyBoard = board;
-			observer.MyBoard.ShipLocations = fleet.GetShipLocations();
+			observer.MyFleet = DefaultFleet; // Get default fleet from subject
+			observer.MyBoard = DefaultBoard; // Default from subject.
+			observer.MyBoard.ShipLocations = DefaultFleet.GetShipLocations();
 			players.Add(observer);
 		}
 		/// <summary>
@@ -48,7 +51,7 @@ namespace Library.src.Subject
 			{
 				Console.WriteLine($"Notifying PLayer : {player.Name} ");
 				// Do som player stuf
-				putfleetOnBoard(board, fleet); //Put the fleet on the board
+				putfleetOnBoard(player.MyBoard, player.MyFleet); //Put the fleet on the board
 				return true; //Checken op lost ??
 			}
 			return false; // EOG
@@ -57,22 +60,28 @@ namespace Library.src.Subject
 		// First attempt
 		public void putfleetOnBoard(Board board, Fleet fleet) //List<BattleShip> ships
 		{
-			Buffer shipsBuffers = new Buffer(board.Size, fleet.BattleShips);
+			Buffer shipsBuffers = new Buffer(fleet.BattleShips);
 			board.ShipLocations = shipsBuffers.Locations;
 			//return boardSituation;
 		}
-		public void Show()
-		{
-			Console.WriteLine($"Default board  : {board.Size}");
-			Console.WriteLine($"Ships in fleet : {fleet.BattleShips.Count}");
-		}
 		public void ShowPlayers()
 		{
-			Console.WriteLine($"Player list :");
+			Console.WriteLine($"Subject players info :");
 			foreach (var player in players)
 			{
-				Console.WriteLine($"\t Player :{player.Name}, is a {player.PlayerType} ");
-				Console.WriteLine($"Players fleet : {player.MyFleet.Name} with {player.MyFleet.FleetExtent} of room");
+				Console.WriteLine($"<------------------ Info ------------------>:");
+				Console.WriteLine($"Board  defaults :{DefaultBoard.Name}");
+				Console.WriteLine($"\tExtent  :{this.DefaultBoard.BoardExtent}");
+				Console.WriteLine($"\tFleet   :{this.DefaultFleet.Name}");
+
+				Console.WriteLine($"Player name :{player.Name}");
+				Console.WriteLine($"\tType  player :{player.PlayerType}");
+				Console.WriteLine($"\tBoard Extent :{player.MyBoard.BoardExtent}");
+				Console.WriteLine($"\tFleet name   :{player.MyFleet.Name}");
+				Console.WriteLine($"\t\tFleet Extent :{player.MyFleet.FleetExtent}");
+				Console.WriteLine($"\t\tFleet Ships  :{player.MyFleet.BattleShips.Count}");
+
+				Console.WriteLine($"dbgShow Fleet :");
 				player.MyFleet.dbgShow();
 			}
 		}

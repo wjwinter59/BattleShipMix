@@ -10,12 +10,13 @@ namespace Library.src.Subject
 	public class BattleShip
 	{
 		List<Location> locations;
-		Extent extent;
+		Extent shipExtent;
 		string name = "Boem"; //what's in a name
 		int length = 0;
 		bool sunk = false;
-		Location minLoc;
-		Location maxLoc;
+		public Extent ShipExtent { get => shipExtent; }
+//		Location minLoc;
+//		Location maxLoc;
 		#region
 		public string Name { get => name; }
 		public int Length { get => length; }
@@ -31,23 +32,19 @@ namespace Library.src.Subject
 			this.name = name;
 			this.length = length;
 			this.sunk = false;
-			locations = new List<Location>(); // List of locations when placed on the grid. 
-			extent = new(locations);
+			locations = new List<Location>(); // List of locations where to place the ship on the grid. 
+			shipExtent = new(locations);
 		}
-
 		public void AddLocation(Location spot)
 		{
-			if ((spot > minLoc) && (spot < maxLoc)) // Uitwerken op extents vergelijking ?
-				extent.AddExtent(spot);
-		}
-		public void Show()
-		{
-			Console.Write("Extent ship :");
-			extent.Show();
-			Console.WriteLine($"Name: {Name}");
-			Console.Write($"Locations : ");
-			foreach (var location in Locations)
-				Console.Write($"x: {location.X} y: {location.Y} ");
+			//if ((spot > minLoc) && (spot < maxLoc))
+			{
+				locations.Add(spot);
+				if (locations.Count == 1)
+					shipExtent.InitExtent(spot);
+				else
+					shipExtent.AddExtent(spot);
+			} // Uitwerken op extents vergelijking ?
 		}
 	}
 }

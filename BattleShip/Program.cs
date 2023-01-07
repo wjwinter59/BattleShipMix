@@ -36,7 +36,7 @@ namespace BattleShipGame
 		static void NewGame()
 		{
 			Subject Game = new Subject();
-			Game.Show();
+//			Game.Show();
 			Observer Player = new Observer(Game, "Willem");
 			Observer Player2 = new Observer(Game, "IbmMetje");
 			//Use another fleet

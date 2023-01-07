@@ -34,13 +34,13 @@ namespace Library.src.Subject
 		{
 			this.battleShips = EnglishFleet;
 			//Test cases !Fill in some parts
-			battleShips[3].Locations.Add(new Location(0, 2, ShipPart.Stearn));
-			battleShips[3].Locations.Add(new Location(0, 3, ShipPart.Midship));
-			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Midship));
-			battleShips[3].Locations.Add(new Location(0, 5, ShipPart.Bow));
-			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
-			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
-			battleShips[1].Locations.Add(new Location(2, 1, ShipPart.Bow));
+			battleShips[3].AddLocation(new Location(0, 2, ShipPart.Stearn));
+			battleShips[3].AddLocation(new Location(0, 3, ShipPart.Midship));
+			battleShips[3].AddLocation(new Location(0, 4, ShipPart.Midship));
+			battleShips[3].AddLocation(new Location(0, 5, ShipPart.Bow));
+			battleShips[1].AddLocation(new Location(0, 1, ShipPart.Bow));
+			battleShips[1].AddLocation(new Location(1, 1, ShipPart.Midship));
+			battleShips[1].AddLocation(new Location(2, 1, ShipPart.Bow));
 			shipLocations = GetShipLocations();
 			fleetExtent = new(shipLocations);
 		}
@@ -88,9 +88,9 @@ namespace Library.src.Subject
 		/// </summary>
 		/// <param name="fleet"></param>
 		/// <returns></returns>
-		public List<Location> BufferShips(BoardSize ocean, List<BattleShip> fleet)
+		public List<Location> BufferShips(List<BattleShip> fleet)
 		{
-			Buffer Buffers = new Buffer(ocean, fleet);
+			Buffer Buffers = new Buffer(fleet);
 			bufferLocations = Buffers.Locations;
 			return bufferLocations;
 		}
@@ -176,15 +176,16 @@ namespace Library.src.Subject
 		{
 			foreach (BattleShip ship in fleet)
 			{
-				Console.WriteLine($"Ship :{ship.Name}\t\tlength: {ship.Length}\t");
-				dbgShow(ship.Locations);
+				Console.WriteLine($"Fleet Extent : {FleetExtent}");
+				Console.WriteLine($"Ship :{ship.Name}");
+				Console.WriteLine($"\tExtent :{ship.ShipExtent}");
+				Console.WriteLine($"\tlength :{ship.Length}\t");
+				if (ship.Locations.Count != 0)
+				{
+					foreach (var loc in ship.Locations)
+						Console.WriteLine($"\t{loc.X}, {loc.Y}, {loc.ShipPart}");
+				}
 			}
-		}
-		void dbgShow(List<Location> locations)
-		{
-			foreach (var loc in locations)
-				Console.WriteLine($"{loc.X}, {loc.Y}, {loc.ShipPart}");
-			Console.WriteLine();
 		}
 	}
 }

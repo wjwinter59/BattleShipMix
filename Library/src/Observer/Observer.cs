@@ -31,7 +31,6 @@ namespace Library.src.Observer
 		{
 			this.name = name;
 			this.playerType = playerType;
-
 			subject.RegisterPlayer(this); // register board and fleet from within Subject class
 		}
 		public bool Update(string name)
@@ -51,9 +50,9 @@ namespace Library.src.Observer
 			Console.WriteLine($"Board ship locations.");
 			try
 			{
-				for (int j = 0; j < MyBoard.Size.Y; j++)
+				for (int j = 0; j < MyBoard.BoardExtent.MaxY; j++)
 				{
-					for (int i = 0; i < MyBoard.Size.X; i++)
+					for (int i = 0; i < MyBoard.BoardExtent.MaxX; i++)
 					{
 						location = MyBoard.ShipLocations.Find(loc => (loc.X == i) & (loc.Y == j));
 						if (location != null)

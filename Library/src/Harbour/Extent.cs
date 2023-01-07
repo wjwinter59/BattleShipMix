@@ -15,9 +15,13 @@ namespace Library.src.Harbour
 		/// Initialize the Extent with the first element of a possible future series of locations
 		/// </summary>
 		/// <param name="init"></param>
-		public Extent(Location init)
+		public Extent() { }
+		public Extent(int minX, int maxX, int minY, int maxY)
 		{
-			InitExtent(init);
+			this.MinX = minX;
+			this.MaxX = maxX;
+			this.MinY = minY;
+			this.MaxY = maxY;
 		}
 		public Extent(List<Location> locations)
 		{
@@ -66,9 +70,10 @@ namespace Library.src.Harbour
 		}
 		public void Show()
 		{
-			Console.WriteLine($"Extent :");
+			Console.Write($"Extent :");
 			Console.WriteLine($"\tmin X:{MinX}\tmax X:{MaxX}\tmin Y:{MinY}\tmax Y:{MaxY}");
 		}
-		public override string ToString() => $"({MinX}, {MaxX},{MinY}, {MaxY})";
+		
+		public override string ToString() => $"Extent ({MinX}, {MaxX},{MinY}, {MaxY})";
 	}
 }

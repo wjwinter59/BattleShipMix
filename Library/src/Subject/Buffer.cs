@@ -19,11 +19,11 @@ namespace Library.src.Subject
 		public List<Location> Locations { get { return boardSituation; } }
 		#endregion
 		#region Buffering
-		public Buffer(BoardSize ocean, List<BattleShip> battleShips)
+		public Buffer(List<BattleShip> battleShips)
 		{
 			List<Location> shipLocations = new List<Location>();
 			List<Location> bufferLocations = new List<Location>();
-			this.ocean = ocean;
+//			this.ocean = ocean;
 			// Collect all locations from the ships
 			foreach (var ship in battleShips)   // Each Ship !!
 				shipLocations.AddRange(ship.Locations);
