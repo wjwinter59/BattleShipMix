@@ -9,14 +9,12 @@ namespace Library.src.Subject
 {
 	public class BattleShip
 	{
-		List<Location> locations;
+		List<Location> locations; //
 		Extent shipExtent;
 		string name = "Boem"; //what's in a name
 		int length = 0;
 		bool sunk = false;
 		public Extent ShipExtent { get => shipExtent; }
-//		Location minLoc;
-//		Location maxLoc;
 		#region
 		public string Name { get => name; }
 		public int Length { get => length; }
@@ -34,7 +32,7 @@ namespace Library.src.Subject
 			this.sunk = false;
 			locations = new List<Location>(); // List of locations where to place the ship on the grid. 
 			shipExtent = new(locations);
-		}
+		} 
 		public void AddLocation(Location spot)
 		{
 			//if ((spot > minLoc) && (spot < maxLoc))

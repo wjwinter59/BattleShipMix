@@ -1,3 +1,9 @@
+# Update 2023/01/07
+  - code has been modified because the design has been modified here and there. In particular the use of extents to (hopefully) make it easier to better manage the situation on the board.
+  - Here and there were 'Show' methods to display information about some status, here an attempt was made to bring some order.
+  - Cleaned up code by removing dead, redundant and obscure junk.
+
+
 # History :
   Started learning C# because I'm interested in Oop, so I needed some sort of project to work on. 
     For some reason I stumbled on a boardgame Battleship, and decided 'This is it !!' :).
