@@ -60,11 +60,11 @@ namespace Library.src.Harbour
 			tmp.YLen = b.Y - a.Y;
 			return tmp;
 		}
-		public static Boolean operator <(Location a, Location b)
+		public static Boolean operator <(Location a, Location b) //Useful ?
 		{
 			return (a.X < b.X) && (a.Y < b.Y);
 		}
-		public static Boolean operator >(Location a, Location b)
+		public static Boolean operator >(Location a, Location b) //Useful ?
 		{
 			return (a.X > b.X) && (a.Y > b.Y);
 		}

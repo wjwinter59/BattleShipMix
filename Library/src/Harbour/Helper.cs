@@ -3,8 +3,6 @@ using System.Text;
 
 namespace Library.src.Harbour
 {
-  public enum Contestant { Human, Computer };
-
   /// <summary>
   /// Uitzoeken hoe dit goed op te zetten via Unicodes
   /// </summary>
@@ -30,7 +28,7 @@ namespace Library.src.Harbour
   /// </summary>
   public static class MathSymb
   {
-    public const char PlusMinSL = '\u2200'; // Ship left
+    public const char PlusMinSL = '\u2200'; // 
     public static void Show()
     {
       Console.WriteLine($"Math  Symbols : {MathSymb.PlusMinSL}");

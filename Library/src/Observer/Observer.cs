@@ -6,6 +6,7 @@ using Library.src.Subject;
 
 namespace Library.src.Observer
 {
+	public enum Contestant { Human, Computer };
 	public class Observer : IObserver
 	{
 		string name;
