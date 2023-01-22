@@ -14,12 +14,13 @@ namespace Library.src.Observer
 		private Board myBoard; // Holds board given by the Subject class
 		private Fleet myFleet; // Holds fleet given by the Subject class
 
-		#region Get- Setters
+		#region Get Set (ters)
 		public string Name { get { return name; } set { name = value; } }
 		public Fleet MyFleet { get { return myFleet; } set { myFleet = value; } }
 		public Board MyBoard { get { return myBoard; } set { myBoard = value; } }
 		public Contestant PlayerType { get { return playerType; } set { playerType = value; } }
 		#endregion
+		#region Constructors
 		public Observer(ISubject subject, string name)
 		{
 			SetupObserver(subject, name, Contestant.Computer);
@@ -28,11 +29,12 @@ namespace Library.src.Observer
 		{
 			SetupObserver(subject, name, playerType);
 		}
+		#endregion
 		void SetupObserver(ISubject subject, string name, Contestant playerType)
 		{
 			this.name = name;
 			this.playerType = playerType;
-			subject.RegisterPlayer(this); // register board and fleet from within Subject class
+			subject.RegisterPlayer(this); // Register observer with.
 		}
 		public bool Update(string name)
 		{
@@ -57,7 +59,6 @@ namespace Library.src.Observer
 					{
 						location = MyBoard.ShipLocations.Find(loc => (loc.X == i) & (loc.Y == j));
 						if (location != null)
-							//Console.Write($"{location.X},{location.Y}\t");
 							Console.Write($"{location.ShipPart}\t");
 						else
 							Console.Write($"?\t");

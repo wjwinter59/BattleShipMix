@@ -1,28 +1,32 @@
-using System;
+﻿using System;
 using Xunit;
 using Library.src.Harbour;
+using Library.src.Subject;
+using System.Collections.Generic;
 
 namespace XTest
 {
-	public class LocationTest1
+	public class FleetTest
 	{
 		[Fact]
-		public void SmallLargeTest()
+		public void Extent()
 		{
 			// Arrange 
-			Location small = new Location() { X = 1, Y = 2 };
-			Location large = new Location() { X = 2, Y = 3 };
 
+			List<BattleShip> EnglishFleet = new List<BattleShip>{
+				new BattleShip("Carrier", 5),
+				new BattleShip("Battleship", 4),
+				new BattleShip("Destroyer", 3),
+				new BattleShip("Submarine", 3),
+				new BattleShip("Patrolboat", 2)
+		};
 			// Act
-			bool result = (small > large);
-			string toString = small.ToString();
+			Fleet vloot = new Fleet("vlootje", EnglishFleet);
 
 			// Assert
-			Assert.False(result);
-			Assert.Equal("location 1,2", small.ToString());
-			Assert.Equal("location 2,3", large.ToString());
+			Assert.Equal("Carrier", EnglishFleet[0].Name);
+			Assert.Equal("Extent 0,2,1,5", EnglishFleet[0].ExtentShip.ToString());
 		}
-
 	}
 	/*
 	public class InlineRange

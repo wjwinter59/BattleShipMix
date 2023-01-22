@@ -52,7 +52,18 @@ namespace Library.src.Harbour
 			this.shipPart = shipPart;
 		}
 		#endregion
-		#region Overloading 
+		#region Overloading
+		public override string ToString()
+		{
+			//return base.ToString() + $"location {X},{Y}";
+			return $"location {X},{Y}";
+		}
+		/// <summary>
+		/// gebruik bij bepalen van extent vanuit een list
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Location operator -(Location a, Location b)
 		{
 			Location tmp = new Location(); 

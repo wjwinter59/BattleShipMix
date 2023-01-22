@@ -8,7 +8,6 @@ using Library.src.Harbour;
 namespace Library.src.Subject
 {
 	public enum BufferPart { Buffer, Water, Nothing };
-
 	public class Buffer
 	{
 		List<Location> boardSituation = new List<Location>();
@@ -18,15 +17,21 @@ namespace Library.src.Subject
 		#region Get Set
 		public List<Location> Locations { get { return boardSituation; } }
 		#endregion
-		#region Buffering
+		#region Constructor
 		public Buffer(List<BattleShip> battleShips)
 		{
 			List<Location> shipLocations = new List<Location>();
 			List<Location> bufferLocations = new List<Location>();
-//			this.ocean = ocean;
+			//			this.ocean = ocean;
 			// Collect all locations from the ships
 			foreach (var ship in battleShips)   // Each Ship !!
 				shipLocations.AddRange(ship.Locations);
+
+			// ocean spul moet eruit, wordt alleen in findspace gebruikt en 
+			// kan ook via de Extents methodes 
+			// is nu even als dummy gebruikt
+				ocean.X = 0;
+				ocean.Y = 10;
 
 			// Create buffers locations and Add the ships locations
 			bufferLocations = GetBuffer(shipLocations);
@@ -34,7 +39,7 @@ namespace Library.src.Subject
 			boardSituation = bufferLocations;
 			roomLocation = FindEmptySpace(bufferLocations);
 		}
-
+		#endregion
 		/// <summary>
 		/// Get bufferlocations around locations that are occupied by shipparts.
 		/// Game rule states that ships are not allowed to touch each other.
@@ -68,15 +73,11 @@ namespace Library.src.Subject
 					searchLoc.Y = loc.Y + j;
 					searchLoc.BufferPart = BufferPart.Buffer; // vul alvast in als locatie straks wordt toegevoegd
 					if (EmptyLocation(shipLocations, buffer, searchLoc))
-					{
 						buffer.Add(new Location(searchLoc));
-						// buffer2.Add(new Location(searchLoc));
-					}
 				}
 			}
 			return buffer;
 		}
-		#endregion
 		/// <summary>
 		/// Determine bases on ship and buffer locations if a location is free
 		/// </summary>
@@ -124,7 +125,7 @@ namespace Library.src.Subject
 				len = next - curr;
 				if (curr > LocMin & curr < LocMax)
 				{
-				 //if (next > LocMin & next < LocMax) // zoek next locatie
+					//if (next > LocMin & next < LocMax) // zoek next locatie
 					Console.WriteLine($"Current :{curr.X},{curr.Y}\t Next :{next.X},{next.Y}\t Length :{len.X},{len.Y}");
 				}
 				curr = next;

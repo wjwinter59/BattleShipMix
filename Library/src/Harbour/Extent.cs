@@ -1,20 +1,24 @@
 using System;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Library.src.Harbour
 {
 	public class Extent
 	{
+		#region get set 
 		public int MinX { get; set; }
 		public int MinY { get; set; }
 		public int MaxX { get; set; }
 		public int MaxY { get; set; }
-
+		public Extent ExtentThis { get { return this; } } //I don't like this
+		#endregion
 		/// <summary>
 		/// Initialize the Extent with the first element of a possible future series of locations
 		/// </summary>
 		/// <param name="init"></param>
+		#region Constructors
 		public Extent() { }
 		public Extent(int minX, int maxX, int minY, int maxY)
 		{
@@ -27,6 +31,7 @@ namespace Library.src.Harbour
 		{
 			CalcExtent(locations);
 		}
+		#endregion
 		/// <summary>
 		/// Initialize the internal extent properties, use 'AddExtent' to test the rest
 		/// </summary>
@@ -48,11 +53,6 @@ namespace Library.src.Harbour
 			MinY = (extent.Y < MinY) ? extent.Y : MinY;
 			MaxX = (extent.X > MaxX) ? extent.X : MaxX;
 			MaxY = (extent.Y > MaxY) ? extent.Y : MaxY;
-//			Show();
-		}
-		private void SetExtent(List<Location> locations)
-		{
-			CalcExtent(locations);
 		}
 		public void CalcExtent(List<Location> locations)
 		{
@@ -73,7 +73,10 @@ namespace Library.src.Harbour
 			Console.Write($"Extent :");
 			Console.WriteLine($"\tmin X:{MinX}\tmax X:{MaxX}\tmin Y:{MinY}\tmax Y:{MaxY}");
 		}
-		
-		public override string ToString() => $"Extent ({MinX}, {MaxX},{MinY}, {MaxY})";
+		/// <summary>
+		/// Usable for testing :)
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString() => $"Extent ({MinX},{MaxX},{MinY},{MaxY})";
 	}
 }

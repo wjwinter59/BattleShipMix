@@ -7,21 +7,27 @@ namespace Library.src.Subject
 {
 	public class Subject : ISubject
 	{
-		#region Private spul getters and contruct
 		List<IObserver> players = new List<IObserver>();
 		private Board defaultBoard;
 		private Fleet defaultFleet;
 
+		#region get set ters 
 		public Board DefaultBoard { get => defaultBoard; }
 		public Fleet DefaultFleet { get => defaultFleet; }
 
+		/// <summary>
+		/// Deze Extent nog uitwerken ....
+		/// Is nu nog dummy
+		/// </summary>
+		public Extent BoardExtent { get => new Extent(); }
+		#endregion
+		#region COnstructor(s)
 		public Subject()
 		{
 			defaultBoard = new Board(6, 7); // overrule default 10x10 size
 			defaultFleet = new Fleet();
 		}
 		#endregion
-
 		#region Methods spul
 		public void RegisterPlayer(IObserver observer)
 		{
@@ -38,7 +44,7 @@ namespace Library.src.Subject
 			observer.Name = name;
 			observer.MyFleet = DefaultFleet; // Get default fleet from subject
 			observer.MyBoard = DefaultBoard; // Default from subject.
-			observer.MyBoard.ShipLocations = DefaultFleet.GetShipLocations();
+			observer.MyBoard.ShipLocations = DefaultFleet.GetShipLocations(observer.MyFleet.BattleShips);
 			players.Add(observer);
 		}
 		/// <summary>
@@ -64,7 +70,7 @@ namespace Library.src.Subject
 			board.ShipLocations = shipsBuffers.Locations;
 			//return boardSituation;
 		}
-		public void ShowPlayers()
+		public void Show()
 		{
 			Console.WriteLine($"Subject players info :");
 			foreach (var player in players)
@@ -73,16 +79,13 @@ namespace Library.src.Subject
 				Console.WriteLine($"Board  defaults :{DefaultBoard.Name}");
 				Console.WriteLine($"\tExtent  :{this.DefaultBoard.BoardExtent}");
 				Console.WriteLine($"\tFleet   :{this.DefaultFleet.Name}");
+				foreach (var ship in this.DefaultFleet.BattleShips)
+					Console.WriteLine($"\tShip Horizontal :{ship.Horizontal}");
 
 				Console.WriteLine($"Player name :{player.Name}");
 				Console.WriteLine($"\tType  player :{player.PlayerType}");
 				Console.WriteLine($"\tBoard Extent :{player.MyBoard.BoardExtent}");
-				Console.WriteLine($"\tFleet name   :{player.MyFleet.Name}");
-				Console.WriteLine($"\t\tFleet Extent :{player.MyFleet.FleetExtent}");
-				Console.WriteLine($"\t\tFleet Ships  :{player.MyFleet.BattleShips.Count}");
-
-				Console.WriteLine($"dbgShow Fleet :");
-				player.MyFleet.dbgShow();
+				player.MyFleet.Show();
 			}
 		}
 	}

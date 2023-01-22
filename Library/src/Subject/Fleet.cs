@@ -13,7 +13,7 @@ namespace Library.src.Subject
 		List<BattleShip> battleShips = new List<BattleShip>();
 		List<Location> shipLocations; // Useful for calculations, the extent of the fleet for exmpl
 		List<Location> bufferLocations;
-		private Extent fleetExtent;
+		private Extent extentFleet;
 
 		List<BattleShip> EnglishFleet = new List<BattleShip>{
 				new BattleShip("Carrier", 5),
@@ -22,12 +22,11 @@ namespace Library.src.Subject
 				new BattleShip("Submarine", 3),
 				new BattleShip("Patrolboat", 2)
 		};
-
 		#region GetSet ers
 		public List<BattleShip> BattleShips { get => battleShips; set => battleShips = value; }
 		public List<Location> ShipLocations { get => shipLocations; }
 		public string Name { get => name; set => name = value; }
-		public Extent FleetExtent { get => fleetExtent; set => fleetExtent = value; }
+		public Extent ExtentFleet { get => extentFleet; set => extentFleet = value; }
 		#endregion
 		#region Constructors
 		public Fleet()
@@ -41,17 +40,18 @@ namespace Library.src.Subject
 			battleShips[1].AddLocation(new Location(0, 1, ShipPart.Bow));
 			battleShips[1].AddLocation(new Location(1, 1, ShipPart.Midship));
 			battleShips[1].AddLocation(new Location(2, 1, ShipPart.Bow));
-			shipLocations = GetShipLocations();
-			fleetExtent = new(shipLocations);
+			//shipLocations = GetShipLocations(battleShips);
+			extentFleet = new(GetShipLocations(battleShips));
 		}
 		public Fleet(Fleet fleet)
 		{
-			this.name = fleet.name;
-			battleShips = fleet.battleShips;
-
 			// Test case
-			this.name = "English ships";
-			battleShips = EnglishFleet;
+			if (fleet.Name == "")
+				this.name = "English ships";
+			if (fleet.battleShips.Count == 0)
+				battleShips = EnglishFleet;
+			else
+				battleShips = fleet.battleShips;
 
 			battleShips[1].Locations.Add(new Location(0, 1, ShipPart.Bow));
 			battleShips[1].Locations.Add(new Location(1, 1, ShipPart.Midship));
@@ -61,25 +61,24 @@ namespace Library.src.Subject
 			battleShips[3].Locations.Add(new Location(0, 4, ShipPart.Bow));
 
 			string jsonBattlaships = JsonSerializer.Serialize(battleShips); // Test thingy
-			shipLocations = GetShipLocations();
-			fleetExtent = new(shipLocations);
+			shipLocations = GetShipLocations(battleShips);
+			extentFleet = new(shipLocations);
 		}
 		public Fleet(string name, List<BattleShip> battleShips)
 		{
 			this.name = name;
-			this.battleShips = battleShips;
-			shipLocations = GetShipLocations();
-			fleetExtent = new(shipLocations);
+			shipLocations = GetShipLocations(battleShips);
+			extentFleet = new(shipLocations);
 		}
 		#endregion
 		/// <summary>
 		/// Build list of locations that are part of all Battleships, 
 		/// in order to process them in a uniform way
 		/// 
-		public List<Location> GetShipLocations()
+		public List<Location> GetShipLocations(List<BattleShip> battleShips)
 		{
 			List<Location> locationList = new();
-			foreach (var ship in this.BattleShips)
+			foreach (var ship in battleShips)
 				locationList.AddRange(ship.Locations);
 			return locationList;
 		}
@@ -105,7 +104,7 @@ namespace Library.src.Subject
 			// Hier stond het genereren van een lijst shiplocations
 			// is nu : GetShipLocations()
 			List<Location> locationList = new List<Location>();
-			locationList.AddRange(Buffer(GetShipLocations()));
+			locationList.AddRange(Buffer(GetShipLocations(fleet.BattleShips)));
 			return locationList;
 		}
 		/// <summary>
@@ -168,24 +167,17 @@ namespace Library.src.Subject
 		{
 			return locations.Find(loc => (loc.X == x) & (loc.Y == y));
 		}
-		public void dbgShow()
+		public void Show()
 		{
 			dbgShow(BattleShips);
 		}
 		public void dbgShow(List<BattleShip> fleet)
 		{
+			Console.WriteLine($"fleet name   : {Name}, Number of ships : {fleet.Count}");
+			Console.WriteLine($"\tships count: {fleet.Count}");
+			Console.WriteLine($"\t     Etent : {extentFleet}");
 			foreach (BattleShip ship in fleet)
-			{
-				Console.WriteLine($"Fleet Extent : {FleetExtent}");
-				Console.WriteLine($"Ship :{ship.Name}");
-				Console.WriteLine($"\tExtent :{ship.ShipExtent}");
-				Console.WriteLine($"\tlength :{ship.Length}\t");
-				if (ship.Locations.Count != 0)
-				{
-					foreach (var loc in ship.Locations)
-						Console.WriteLine($"\t{loc.X}, {loc.Y}, {loc.ShipPart}");
-				}
-			}
+				ship.Show();
 		}
 	}
 }
